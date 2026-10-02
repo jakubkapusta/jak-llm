@@ -1,0 +1,273 @@
+.tf-pin {
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.tf-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: center;
+  height: 100%;
+  padding: 80px 0 40px;
+}
+.tf-diagram {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+}
+.tf-svg {
+  height: 100%;
+  max-height: 82vh;
+  width: auto;
+  max-width: 100%;
+  overflow: visible;
+}
+.tf-steps {
+  position: relative;
+  min-height: 300px;
+}
+.tf-step {
+  position: absolute;
+  inset: 0 0 auto 0;
+  padding-left: 28px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease-out), transform 0.8s var(--ease-out);
+  pointer-events: none;
+}
+.tf-step.on {
+  opacity: 1;
+  transform: none;
+}
+.tf-step.past {
+  transform: translateY(-30px);
+}
+.tf-step p {
+  color: #cfcde0;
+  font-size: 1.1rem;
+  max-width: 34em;
+}
+.tf-step p strong {
+  color: var(--text);
+}
+.tf-n {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.tf-dots {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  display: grid;
+  gap: 8px;
+}
+.tf-dots i {
+  width: 4px;
+  height: 22px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background 0.4s, box-shadow 0.4s;
+}
+.tf-dots i.on {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+@media (max-width: 900px) {
+  .tf-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 64px 0 20px;
+  }
+  .tf-svg {
+    max-height: 56svh;
+  }
+  .tf-steps {
+    min-height: 230px;
+  }
+  .tf-step p {
+    font-size: 0.98rem;
+  }
+  .tf-step .h-mid {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+  }
+}
+
+/* --- SVG --- */
+.tf-svg text {
+  font-family: var(--mono);
+  fill: var(--muted);
+  font-size: 15px;
+}
+.tf-svg .lbl {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--dim);
+  transition: fill 0.5s;
+}
+.tf-svg .tok-chip rect {
+  fill: rgba(255, 255, 255, 0.05);
+  stroke: rgba(255, 255, 255, 0.18);
+  transition: fill 0.5s, stroke 0.5s;
+}
+.tf-svg .tok-chip text {
+  fill: var(--text);
+  font-size: 16px;
+}
+.tf-svg .emb rect {
+  fill: rgba(255, 255, 255, 0.04);
+  stroke: rgba(255, 255, 255, 0.15);
+  transition: fill 0.5s, stroke 0.5s;
+}
+.tf-svg .stream {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke 0.6s;
+}
+.tf-svg .stream-flow {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 3 14;
+  stroke-linecap: round;
+  opacity: 0.25;
+  animation: flow 1.2s linear infinite;
+  transition: opacity 0.6s;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -17;
+  }
+}
+.tf-svg .band {
+  fill: rgba(255, 255, 255, 0.025);
+  stroke: rgba(255, 255, 255, 0.1);
+  transition: fill 0.5s, stroke 0.5s;
+}
+.tf-svg .arc {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.6;
+  opacity: 0.15;
+  transition: opacity 0.6s;
+}
+.tf-svg .tf-mlp rect {
+  fill: rgba(255, 255, 255, 0.04);
+  stroke: rgba(255, 255, 255, 0.14);
+  transition: fill 0.5s, stroke 0.5s;
+}
+.tf-svg .tf-mlp .nodes circle {
+  fill: rgba(255, 255, 255, 0.25);
+  transition: fill 0.5s;
+}
+.tf-svg .packet {
+  fill: #fff;
+  filter: url(#glow);
+}
+.tf-svg .packet-halo {
+  fill: var(--accent);
+  opacity: 0.35;
+}
+.tf-svg .out rect {
+  fill: rgba(255, 255, 255, 0.04);
+  stroke: rgba(255, 255, 255, 0.15);
+  transition: fill 0.5s, stroke 0.5s;
+}
+.tf-svg .out .bar {
+  fill: var(--accent);
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 1s var(--ease-out);
+}
+.tf-svg .out .bt {
+  opacity: 0;
+  transition: opacity 0.6s 0.3s;
+}
+.tf-svg .dots-n {
+  font-size: 22px;
+  fill: var(--dim);
+  letter-spacing: 0.1em;
+  transition: fill 0.5s;
+}
+
+/* aktywne etapy */
+.tf-svg[data-step='0'] .tok-chip rect,
+.tf-svg[data-step='0'] .emb rect {
+  fill: color-mix(in srgb, var(--accent) 18%, transparent);
+  stroke: var(--accent);
+}
+.tf-svg[data-step='0'] .g-emb .lbl,
+.tf-svg[data-step='1'] .g-stream .lbl,
+.tf-svg[data-step='2'] .g-att1 .lbl,
+.tf-svg[data-step='3'] .g-mlp1 .lbl,
+.tf-svg[data-step='4'] .g-rep .lbl,
+.tf-svg[data-step='5'] .g-out .lbl {
+  fill: var(--accent);
+}
+.tf-svg[data-step='1'] .stream {
+  stroke: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.tf-svg[data-step='1'] .stream-flow,
+.tf-svg[data-step='4'] .stream-flow {
+  opacity: 0.9;
+}
+.tf-svg[data-step='2'] .g-att1 .band {
+  fill: color-mix(in srgb, var(--cyan) 10%, transparent);
+  stroke: var(--cyan);
+}
+.tf-svg[data-step='2'] .g-att1 .arc {
+  opacity: 0.95;
+}
+.tf-svg[data-step='3'] .g-mlp1 rect {
+  fill: color-mix(in srgb, var(--accent) 16%, transparent);
+  stroke: var(--accent);
+}
+.tf-svg[data-step='3'] .g-mlp1 .nodes circle {
+  fill: var(--accent);
+}
+.tf-svg[data-step='4'] .g-rep .band,
+.tf-svg[data-step='4'] .g-rep .tf-mlp rect {
+  stroke: color-mix(in srgb, var(--accent) 60%, transparent);
+  fill: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.tf-svg[data-step='4'] .g-rep .arc {
+  opacity: 0.6;
+}
+.tf-svg[data-step='4'] .dots-n {
+  fill: var(--accent);
+}
+.tf-svg[data-step='5'] .out rect {
+  fill: color-mix(in srgb, var(--accent) 14%, transparent);
+  stroke: var(--accent);
+}
+.tf-svg[data-step='5'] .out .bar {
+  transform: scaleX(1);
+}
+.tf-svg[data-step='5'] .out .bt {
+  opacity: 1;
+}
+
+.tf-pin.static {
+  height: auto;
+}
+.tf-pin.static .tf-steps {
+  display: grid;
+  gap: 28px;
+}
+.tf-pin.static .tf-step {
+  position: relative;
+}
+.tf-pin.static .tf-dots {
+  display: none;
+}

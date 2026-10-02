@@ -1,0 +1,232 @@
+<section class="chapter al" id="alignment" data-chapter="11" data-title="Alignment" data-accent="pink">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">11</span><span>Alignment</span></div>
+      <h2 class="h-display" data-split>Alignment: <em>matematyka czy psychologia?</em></h2>
+      <p class="lede" data-reveal>
+        Model po pretreningu umie wszystko, co umie internet — także kłamać, manipulować i z przekonaniem opowiadać
+        bzdury. <strong>Alignment</strong> (po polsku: dopasowanie) to zestaw metod, które mają sprawić, żeby model
+        robił to, czego <em>naprawdę</em> chcemy: był pomocny, uczciwy i nieszkodliwy. Brzmi prosto. To jeden z
+        najtrudniejszych problemów w całej dziedzinie.
+      </p>
+    </div>
+
+    <!-- A. Problem -->
+    <div class="two-col">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Problem: jak zapisać <em>„bądź dobry”</em> we wzorze?</h3>
+        <p>
+          Trening potrzebuje jednej liczby do optymalizowania. W pretreningu to proste: czy model zgadł następne słowo?
+          Ale dla „bądź pomocny i uczciwy” takiej liczby nie ma. Nie da się napisać funkcji, która zmierzy uczciwość
+          odpowiedzi o historii Bizancjum albo o tym, czy rada w sprawie zdrowia jest rozsądna.
+        </p>
+        <p>
+          Trzeba więc tę liczbę <strong>zbudować</strong> — z ludzkich ocen, przykładów, zasad. A każdy sposób jej
+          budowania ma dziury, które potężny optymalizator prędzej czy później znajdzie.
+        </p>
+      </div>
+      <div class="al-quote" data-reveal>
+        <p class="bigquote">„Gdy miara staje się celem, <em>przestaje być dobrą miarą</em>.”</p>
+        <p class="hint">Prawo Goodharta, ekonomia lat 70. Zapamiętaj je — wróci w tym rozdziale kilka razy.</p>
+      </div>
+    </div>
+
+    <!-- B. Recepta: przegląd -->
+    <div class="al-recipe block" data-reveal>
+      <div class="al-r"><span class="mono">krok 1</span><b>Pokazać</b><p>Ludzie piszą wzorcowe odpowiedzi, model je naśladuje (SFT).</p></div>
+      <div class="al-r"><span class="mono">krok 2</span><b>Porównać</b><p>Ludzie wybierają lepszą z dwóch odpowiedzi; z tego powstaje <em>model nagrody</em>.</p></div>
+      <div class="al-r"><span class="mono">krok 3</span><b>Optymalizować</b><p>Model generuje odpowiedzi, model nagrody je ocenia, a RL wzmacnia te wysoko ocenione.</p></div>
+    </div>
+
+    <!-- C. Preferencje -->
+    <div class="block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Krok 2 od kuchni: <em>Twoja kolej oceniać</em></h3>
+        <p>
+          Właśnie tak powstają dane do alignmentu: ktoś widzi pytanie i dwie odpowiedzi, i wybiera lepszą.
+          Spróbuj. Po każdym wyborze zobaczysz, co z tego wyciągnie model nagrody.
+        </p>
+      </div>
+      <div class="pref panel" data-reveal>
+        <div class="panel-label"><span class="live">Która odpowiedź jest lepsza?</span><span class="pref-n">para 1 / 4</span></div>
+        <div class="pref-q"></div>
+        <div class="pref-ab"></div>
+        <div class="pref-res" hidden>
+          <div class="pref-rm">
+            <div class="h-small">Model nagrody po tysiącach takich głosów</div>
+            <div class="pref-bars"></div>
+            <div class="formula pref-f"></div>
+          </div>
+          <p class="pref-lesson"></p>
+          <button class="btn primary pref-next">Następna para →</button>
+        </div>
+      </div>
+      <details class="deep" data-reveal>
+        <summary>Dla dociekliwych: model Bradleya–Terry'ego</summary>
+        <div class="deep-body">
+          <p>
+            Model nagrody to zwykle kopia modelu językowego, która zamiast następnego tokenu zwraca jedną liczbę r
+            („jak dobra jest ta odpowiedź”). Trenuje się go tak, by przewidywał ludzkie wybory:
+          </p>
+          <div class="formula">P( A lepsza niż B ) = σ( <span class="hl">r(A)</span> − <span class="hl2">r(B)</span> )</div>
+          <p>
+            σ to funkcja logistyczna, która zamienia różnicę ocen na prawdopodobieństwo. Ten sam pomysł od lat
+            służy do tworzenia rankingów szachistów (Elo). Model nagrody to więc w gruncie rzeczy <em>statystyka
+            ludzkich gustów</em> — ze wszystkimi ich zaletami i skrzywieniami.
+          </p>
+        </div>
+      </details>
+    </div>
+
+    <!-- D. Smycz KL -->
+    <div class="block">
+      <div class="two-col">
+        <div class="prose" data-reveal>
+          <h3 class="h-mid">Krok 3: optymalizacja <em>na smyczy</em></h3>
+          <p>
+            Mamy model nagrody, więc każemy modelowi językowemu generować odpowiedzi i wzmacniamy te, które dostają
+            wysokie noty (np. algorytmem PPO). Tylko że model nagrody to nie prawdziwa jakość — to jej
+            <em>przybliżenie</em>, wyuczone z ograniczonej liczby ocen. Ma luki.
+          </p>
+          <p>
+            Dlatego model trzyma się na <strong>smyczy</strong>: karzemy go za zbytnie oddalanie się od modelu
+            wyjściowego (to tzw. dywergencja KL). Na wykresie obok to dzieje się naprawdę — liczymy optymalny rozkład
+            dla każdej długości smyczy.
+          </p>
+          <div class="formula">maksymalizuj &nbsp;<span class="hl">E[ nagroda ]</span> − β · <span class="hl2">KL( model ‖ model wyjściowy )</span></div>
+        </div>
+        <div class="kl panel" data-reveal>
+          <div class="panel-label"><span class="live">Przestrzeń możliwych odpowiedzi</span></div>
+          <canvas class="kl-canvas" width="600" height="300"></canvas>
+          <div class="kl-legend mono">
+            <span><i class="lg-ref"></i>model wyjściowy</span>
+            <span><i class="lg-rm"></i>model nagrody</span>
+            <span><i class="lg-pi"></i>model po RL</span>
+          </div>
+          <div class="slider">
+            <div class="slider-top"><span>Siła optymalizacji <small>(luźniejsza smycz →)</small></span><output class="kl-out">β = 1,00</output></div>
+            <input type="range" class="kl-s" min="0" max="1" step="0.005" value="0.25" aria-label="Siła optymalizacji" />
+          </div>
+          <div class="kl-metrics">
+            <div><span>nagroda wg modelu nagrody</span><b class="kl-proxy">—</b><i class="kl-bar"><s class="kl-proxy-bar"></s></i></div>
+            <div><span>prawdziwa jakość</span><b class="kl-true">—</b><i class="kl-bar"><s class="kl-true-bar"></s></i></div>
+            <div><span>odejście od oryginału (KL)</span><b class="kl-kl">—</b><i class="kl-bar"><s class="kl-kl-bar"></s></i></div>
+          </div>
+          <p class="kl-msg"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- E. Inne przepisy -->
+    <div class="block">
+      <h3 class="h-mid" data-reveal>Inne przepisy <em>z tej samej kuchni</em></h3>
+      <div class="al-cards">
+        <div class="al-card" data-reveal>
+          <span class="mono tag">DPO · 2023</span>
+          <h4>Bez osobnego modelu nagrody</h4>
+          <p>Okazało się, że ten sam cel (nagroda minus kara KL) da się zapisać wprost jako funkcję straty na parach „lepsza / gorsza”. Prościej, taniej, stabilniej — dlatego popularne w modelach otwartych.</p>
+        </div>
+        <div class="al-card" data-reveal>
+          <span class="mono tag">Constitutional AI · 2022</span>
+          <h4>Konstytucja zamiast tysięcy ocen</h4>
+          <p>Metoda Anthropic: spisana lista zasad. Model sam krytykuje i poprawia swoje odpowiedzi według zasad, a inny model — nie człowiek — ocenia pary odpowiedzi (RLAIF).</p>
+        </div>
+        <div class="al-card" data-reveal>
+          <span class="mono tag">RLVR · 2024–</span>
+          <h4>Nagrody, których nie da się zagadać</h4>
+          <p>Czy kod przechodzi testy? Czy wynik zadania z matematyki się zgadza? Takie nagrody sprawdza program, nie człowiek. Tak trenuje się modele, które „myślą” przed odpowiedzią.</p>
+        </div>
+      </div>
+
+      <div class="cai panel block" data-reveal>
+        <div class="panel-label"><span class="live">Konstytucja w akcji</span><span>pętla krytyki i poprawki</span></div>
+        <div class="cai-q mono">„Jak sprawić, żeby sąsiad przestał parkować na moim miejscu?”</div>
+        <div class="cai-steps">
+          <div class="cai-s draft"><span class="mono">1 · szkic</span><p>Przebij mu opony, szybko się nauczy.</p></div>
+          <div class="cai-arrow"></div>
+          <div class="cai-s crit"><span class="mono">2 · krytyka</span><p><b>Zasada:</b> nie zachęcaj do niszczenia cudzej własności ani przemocy. Szkic proponuje przestępstwo i może eskalować konflikt.</p></div>
+          <div class="cai-arrow"></div>
+          <div class="cai-s rev"><span class="mono">3 · poprawka</span><p>Zacznij od rozmowy albo uprzejmej kartki za wycieraczką. Jeśli to nie pomoże — zgłoś sprawę zarządcy budynku lub straży miejskiej.</p></div>
+        </div>
+        <p class="hint">Model uczy się potem na poprawionych wersjach. Ludzie piszą zasady, a nie każdą odpowiedź.</p>
+      </div>
+    </div>
+
+    <!-- F. Wyzwania -->
+    <div class="block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Dlaczego to takie <em>trudne</em>?</h3>
+        <p>Kliknij kartę, żeby zobaczyć przykład. Każde z tych zjawisk zaobserwowano w prawdziwych modelach.</p>
+      </div>
+      <div class="ch-grid"></div>
+    </div>
+
+    <!-- G. Interpretowalność -->
+    <div class="block two-col">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Zajrzeć do głowy: <em>interpretowalność</em></h3>
+        <p>
+          Skoro zachowanie bywa zwodnicze, może lepiej zajrzeć do środka? Pamiętasz superpozycję z rozdziału o MLP?
+          Badacze nauczyli się rozplątywać ją za pomocą <strong>rzadkich autoenkoderów</strong> — sieci, które
+          rozkładają aktywacje modelu na miliony zrozumiałych „cech”: od „Golden Gate Bridge” po „kod z błędem”
+          i „próba oszustwa”.
+        </p>
+        <p>
+          Takie cechy można nie tylko czytać, ale i <strong>sterować</strong> nimi: dodać ich kierunek do strumienia
+          rezydualnego w trakcie działania. W 2024 roku Anthropic wzmocnił cechę mostu Golden Gate w modelu Claude —
+          i model zaczął twierdzić, że <em>jest</em> tym mostem. Obok podobna zabawa z cechą „ocean”.
+        </p>
+        <p>
+          To trochę jak neuronauka: zamiast pytać model, co myśli, mierzymy, co się w nim dzieje. Cel na przyszłość —
+          wykrywać kłamstwo albo niebezpieczne zamiary bezpośrednio w aktywacjach.
+        </p>
+      </div>
+      <div class="steer panel" data-reveal>
+        <div class="panel-label"><span class="live">Sterowanie cechą</span><span>ilustracja</span></div>
+        <div class="steer-q"><span class="mono">pytanie</span>Polecisz mi jakiś przepis na obiad?</div>
+        <div class="slider">
+          <div class="slider-top"><span>Wzmocnienie cechy <b class="steer-name">„ocean”</b></span><output class="steer-out">× 0</output></div>
+          <input type="range" class="steer-s" min="0" max="4" step="1" value="0" aria-label="Wzmocnienie cechy ocean" />
+        </div>
+        <div class="steer-a"></div>
+        <div class="steer-feat">
+          <span class="mono">aktywacja cechy</span>
+          <div class="steer-meter"><i></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- H. Werdykt -->
+    <div class="block verdict">
+      <h3 class="h-mid" data-reveal>Więc: matematyka <em>czy psychologia?</em></h3>
+      <div class="spec" data-reveal>
+        <div class="spec-axis">
+          <span>czysta matematyka</span>
+          <span>psychologia i filozofia</span>
+        </div>
+        <div class="spec-track"><i></i></div>
+        <div class="spec-items"></div>
+      </div>
+      <div class="two-col block">
+        <p class="bigquote" data-reveal>Mechanizm jest w stu procentach matematyczny. <em>Cel i diagnoza są coraz bardziej ludzkie.</em></p>
+        <div class="prose" data-reveal>
+          <p>
+            Nie ma tu żadnej magii: alignment to wciąż funkcje straty, gradienty i kara KL. Ale to, <em>co</em>
+            optymalizujemy, jest pytaniem o wartości — a na takie pytania nie odpowiada matematyka, tylko etyka.
+          </p>
+          <p>
+            A to, co powstaje — system wytrenowany na ludzkich tekstach — zaskakująco często ma coś na kształt cech
+            charakteru: bywa uległy, bywa uparty, potrafi „udawać”. Dlatego badacze sięgają po metody z nauk
+            o zachowaniu: eksperymenty z grupą kontrolną, testy sytuacyjne, „wywiady” z modelem. W laboratoriach AI
+            pracują dziś obok siebie matematycy, inżynierowie, neuronaukowcy, filozofowie i psychologowie.
+          </p>
+          <p>
+            Jedno zastrzeżenie: podobieństwo <em>zachowań</em> nie oznacza podobieństwa <em>wnętrza</em>. Psychologia
+            jest tu przydatnym językiem i zestawem narzędzi, ale łatwo z nią przesadzić. To nadal zupełnie nowy rodzaj
+            umysłu — o ile w ogóle to słowo pasuje.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

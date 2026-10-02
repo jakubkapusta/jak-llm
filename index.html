@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jak myśli maszyna — LLM krok po kroku</title>
+    <meta name="description" content="Interaktywna opowieść o tym, jak działają duże modele językowe: od tokenów, przez uwagę i trening, po alignment." />
+    <meta name="theme-color" content="#06060b" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap&subset=latin-ext"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true"><span></span><span></span></div>
+
+    <header class="topbar">
+      <a class="brand" href="#top"><span class="brand-dot"></span>Jak myśli maszyna</a>
+      <div class="topbar-chapter" aria-live="polite"><span class="tc-num">00</span><span class="tc-name">Wstęp</span></div>
+    </header>
+    <div class="progress" aria-hidden="true"><span></span></div>
+    <nav class="rail" aria-label="Rozdziały"></nav>
+
+    <main id="top">
+      <!-- @include 00-hero.html -->
+      <!-- @include 01-next-word.html -->
+      <!-- @include 02-tokens.html -->
+      <!-- @include 03-embeddings.html -->
+      <!-- @include 04-transformer.html -->
+      <!-- @include 05-attention.html -->
+      <!-- @include 06-mlp.html -->
+      <!-- @include 07-softmax.html -->
+      <!-- @include 08-generation.html -->
+      <!-- @include 09-training.html -->
+      <!-- @include 10-assistant.html -->
+      <!-- @include 11-alignment.html -->
+      <!-- @include 12-scale.html -->
+      <!-- @include 13-limits.html -->
+    </main>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

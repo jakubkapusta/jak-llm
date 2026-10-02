@@ -1,0 +1,61 @@
+<section class="chapter" id="idea" data-chapter="01" data-title="Wielka idea" data-accent="amber">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">01</span><span>Wielka idea</span></div>
+      <h2 class="h-display" data-split>Cała magia to <em>zgadywanie następnego słowa</em></h2>
+      <p class="lede" data-reveal>
+        Zanim zanurkujemy w szczegóły, najważniejsza rzecz. Model językowy robi dokładnie jedną czynność:
+        dostaje kawałek tekstu i zwraca listę prawdopodobieństw — jakie słowo powinno pojawić się dalej.
+        I tyle. Cała reszta, czyli rozmowy, kod, wiersze, tłumaczenia, wyrasta z tego jednego triku.
+      </p>
+    </div>
+
+    <div class="nw-game panel" data-reveal>
+      <div class="panel-label">
+        <span class="live">Zagraj w model językowy</span>
+        <span class="nw-round">runda 1 / 6</span>
+      </div>
+      <p class="nw-instr">Które słowo jest najbardziej prawdopodobne jako następne?</p>
+      <div class="nw-prompt"><span class="nw-ptext"></span><span class="nw-blank">______</span></div>
+      <div class="nw-choices"></div>
+      <div class="nw-result" hidden>
+        <div class="nw-verdict"></div>
+        <div class="nw-bars"></div>
+        <div class="nw-lesson"></div>
+        <button class="btn primary nw-next">Następna runda →</button>
+      </div>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Autouzupełnianie <em>na sterydach</em></h3>
+        <p>
+          W tej grze robisz dokładnie to samo co model. Zauważ, czego było do tego trzeba: przy stolicy — <strong>wiedzy o świecie</strong>.
+          Przy „Ala ma…” — <strong>kultury</strong>. Przy działaniu — <strong>arytmetyki</strong>. Przy „Mimo deszczu…” —
+          <strong>logiki</strong> i gramatyki.
+        </p>
+        <p>
+          To jest sedno: żeby <em>świetnie</em> przewidywać następne słowo w dowolnym tekście napisanym przez ludzi,
+          trzeba w jakimś sensie rozumieć to, o czym ludzie piszą. Prosty cel treningowy wymusza zbudowanie
+          bardzo bogatego wewnętrznego modelu świata.
+        </p>
+      </div>
+      <div data-reveal>
+        <div class="nw-machine">
+          <div class="nwm-in mono">„Stolicą Polski jest”</div>
+          <div class="nwm-arrow"></div>
+          <div class="nwm-box"><span>?</span><small>sieć neuronowa<br />miliardy parametrów</small></div>
+          <div class="nwm-arrow"></div>
+          <div class="nwm-out">
+            <div><span class="mono">Warszawa</span><i style="--w: 93%"></i><b>93%</b></div>
+            <div><span class="mono">miasto</span><i style="--w: 3%"></i><b>3%</b></div>
+            <div><span class="mono">Kraków</span><i style="--w: 2%"></i><b>2%</b></div>
+            <div><span class="mono">…</span><i style="--w: 1%"></i><b>…</b></div>
+          </div>
+        </div>
+        <div class="formula" style="margin-top: 22px">P( <span class="hl">następny token</span> | <span class="hl2">wszystkie poprzednie tokeny</span> )</div>
+        <p class="hint">Ten znak zapytania w środku to cała reszta tej strony. Otworzymy go warstwa po warstwie.</p>
+      </div>
+    </div>
+  </div>
+</section>

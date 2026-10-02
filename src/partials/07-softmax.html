@@ -1,0 +1,71 @@
+<section class="chapter" id="losowanie" data-chapter="07" data-title="Softmax i losowanie" data-accent="pink">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">07</span><span>Wyjście</span></div>
+      <h2 class="h-display" data-split>Od liczb do słowa: <em>softmax i kości do gry</em></h2>
+      <p class="lede" data-reveal>
+        Na szczycie sieci wektor ostatniego tokenu zostaje porównany z każdym tokenem w słowniku. Wychodzi z tego
+        jedna surowa liczba na token, tzw. <strong>logit</strong>: im większa, tym lepiej token pasuje. Funkcja
+        <strong>softmax</strong> zamienia logity na prawdopodobieństwa. A potem… rzucamy kośćmi.
+      </p>
+    </div>
+
+    <div class="sm panel" data-reveal>
+      <div class="sm-grid">
+        <div class="sm-left">
+          <div class="panel-label"><span>„Kot usiadł na …” · 10 z ~200 000 tokenów</span><span class="sm-legend">logit → prawdopodobieństwo</span></div>
+          <div class="sm-rows"></div>
+        </div>
+        <div class="sm-right">
+          <div class="slider">
+            <div class="slider-top"><span>Temperatura</span><output class="sm-t-out">1,0</output></div>
+            <input type="range" class="sm-t" min="0" max="2" step="0.05" value="1" aria-label="Temperatura" />
+          </div>
+          <div class="slider">
+            <div class="slider-top"><span>Top-p (jądro)</span><output class="sm-p-out">1,00</output></div>
+            <input type="range" class="sm-p" min="0.05" max="1" step="0.01" value="1" aria-label="Top-p" />
+          </div>
+          <div class="sm-presets">
+            <button class="btn small" data-t="0" data-p="1">zawsze to samo</button>
+            <button class="btn small" data-t="0.7" data-p="0.9">typowy czat</button>
+            <button class="btn small" data-t="1.6" data-p="1">szaleństwo</button>
+          </div>
+          <div class="sm-roll">
+            <button class="btn primary sm-one">🎲 Losuj słowo</button>
+            <button class="btn sm-many">× 100</button>
+          </div>
+          <div class="sm-result">
+            <span class="mono sm-prefix">Kot usiadł na</span>
+            <span class="sm-word">…</span>
+          </div>
+          <p class="sm-note"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Temperatura</h3>
+        <p>
+          Przed softmaxem dzielimy logity przez <em>temperaturę</em>. Niska temperatura wyostrza różnice: faworyt
+          zgarnia prawie wszystko, a odpowiedzi stają się przewidywalne i powtarzalne. Przy zerze model zawsze wybiera
+          najlepszy token. Wysoka temperatura spłaszcza rozkład: dochodzą do głosu dziwne, rzadkie słowa.
+          Czasem twórcze, częściej bez sensu.
+        </p>
+        <div class="formula">p<sub>i</sub> = e<sup class="hl">z<sub>i</sub> / T</sup> / Σ<sub>j</sub> e<sup class="hl">z<sub>j</sub> / T</sup></div>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Top-p, czyli <em>odcinamy ogon</em></h3>
+        <p>
+          W słowniku są setki tysięcy tokenów i każdy dostaje jakieś drobne prawdopodobieństwo. Razem ten „ogon”
+          potrafi być spory, a wylosowanie z niego czegoś absurdalnego psuje tekst. <strong>Top-p</strong> zostawia
+          tylko najlepsze tokeny, które razem dają p (np. 90%) prawdopodobieństwa, a resztę wyrzuca.
+        </p>
+        <p>
+          Dlatego ten sam model na to samo pytanie odpowiada za każdym razem trochę inaczej: to nie błąd,
+          tylko losowanie wbudowane w samą konstrukcję.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

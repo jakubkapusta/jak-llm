@@ -1,0 +1,104 @@
+<section class="chapter" id="granice" data-chapter="13" data-title="Granice i przyszłość" data-accent="violet">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">13</span><span>Granice i przyszłość</span></div>
+      <h2 class="h-display" data-split>Granice i <em>to, co dalej</em></h2>
+      <p class="lede" data-reveal>
+        Znamy już całą maszynerię. Teraz łatwiej zrozumieć, skąd biorą się słabości modeli i dokąd zmierzają
+        najciekawsze pomysły na ich obejście.
+      </p>
+    </div>
+
+    <div class="bento">
+      <article class="bx bx-hallu" data-reveal>
+        <span class="bx-tag mono">01 · halucynacje</span>
+        <h3>Wiarygodne ≠ prawdziwe</h3>
+        <p>Model zawsze produkuje <em>prawdopodobny</em> ciąg dalszy. Jeśli nie zna odpowiedzi, prawdopodobny ciąg dalszy wciąż istnieje — i brzmi równie pewnie jak prawda.</p>
+        <div class="hallu">
+          <div class="hallu-q mono">Podaj źródło badania o wpływie kawy na kreatywność.</div>
+          <div class="hallu-a">Kowalski, J. i Nowak, A. (2019). <i>Kofeina a myślenie dywergencyjne.</i> Journal of Cognitive Science, 41(3), 212–229.<span class="stamp">nie istnieje</span></div>
+        </div>
+        <p class="bx-foot">Lekarstwa: wyszukiwanie w sieci i cytowanie źródeł, trening nagradzający „nie wiem”, sprawdzanie odpowiedzi narzędziami.</p>
+      </article>
+
+      <article class="bx bx-ctx" data-reveal>
+        <span class="bx-tag mono">02 · okno kontekstu</span>
+        <h3>Pamięć ma brzegi</h3>
+        <p>Model widzi tylko tyle tokenów, ile mieści jego okno: dziś od dziesiątek tysięcy do ponad miliona. Co poza nim — nie istnieje.</p>
+        <div class="ctxwin"><div class="ctx-strip"></div><div class="ctx-frame"></div></div>
+        <p class="bx-foot">Nawet w oknie uwaga bywa nierówna: modele lepiej pamiętają początek i koniec długiego tekstu niż środek.</p>
+      </article>
+
+      <article class="bx bx-think" data-reveal>
+        <span class="bx-tag mono">03 · rozumowanie</span>
+        <h3>Myślenie na głos</h3>
+        <p>Każdy token to stała porcja obliczeń. Trudne zadanie w jednym tokenie? Za mało „czasu na myślenie”. Pisząc kroki pośrednie, model kupuje sobie więcej obliczeń.</p>
+        <div class="think">
+          <div class="th-row bad"><span class="mono">od razu:</span> 17 × 24 = <b>418</b> <i>✕</i></div>
+          <div class="th-row good"><span class="mono">krok po kroku:</span> 17 × 24 = 17 × 20 + 17 × 4 = 340 + 68 = <b>408</b> <i>✓</i></div>
+        </div>
+        <p class="bx-foot">Modele „rozumujące” są trenowane (RL z weryfikowalnymi nagrodami), by przed odpowiedzią pisać długie, ukryte notatki — czasem tysiące tokenów.</p>
+      </article>
+
+      <article class="bx bx-agent" data-reveal>
+        <span class="bx-tag mono">04 · narzędzia i agenci</span>
+        <h3>Model w pętli</h3>
+        <p>Model nie musi wszystkiego wiedzieć ani liczyć sam. Może wypisać specjalny tekst „wywołaj narzędzie”, program je wykona, a wynik wróci do kontekstu.</p>
+        <svg class="agent-svg" viewBox="0 0 360 220" aria-label="Pętla agenta"></svg>
+        <p class="bx-foot">Ta strona powstała właśnie tak: model językowy w pętli z edytorem plików, terminalem i przeglądarką napisał, uruchomił i sprawdził cały jej kod.</p>
+      </article>
+
+      <article class="bx bx-multi" data-reveal>
+        <span class="bx-tag mono">05 · multimodalność</span>
+        <h3>Obraz to też tokeny</h3>
+        <p>Zdjęcie tnie się na małe kwadraty, każdy zamienia się w wektor — i dalej działa ta sama maszyneria uwagi. Podobnie z dźwiękiem.</p>
+        <div class="patches"></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="finale">
+    <div class="wrap">
+      <p class="finale-text">
+        Tokeny. Wektory. Uwaga. Miliardy mnożeń na sekundę — i nic poza tym. A jednak z tej prostej pętli,
+        <em>zgadnij następne słowo</em>, wyłania się coś, co potrafi rozmawiać, tłumaczyć, programować i wyjaśniać,
+        jak samo działa.
+      </p>
+      <div class="finale-end">
+        <span class="mono">Kot usiadł na</span><span class="finale-word">parapecie</span><span class="finale-dot">.</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div>
+        <div class="brand"><span class="brand-dot"></span>Jak myśli maszyna</div>
+        <p class="hint">
+          Interaktywny przewodnik po dużych modelach językowych. Liczby w demonstracjach są ilustracyjne, chyba że
+          zaznaczono inaczej. Tokenizer działa naprawdę, a wykresy softmaxu, spadku gradientu i smyczy KL liczą
+          prawdziwą matematykę w przeglądarce.
+        </p>
+        <a class="btn small" href="#wstep">↑ Wróć na początek</a>
+      </div>
+      <div>
+        <div class="h-small">Źródła i dalsza lektura</div>
+        <ul class="refs">
+          <li>Vaswani i in. (2017) — <i>Attention Is All You Need</i></li>
+          <li>Kaplan i in. (2020) — <i>Scaling Laws for Neural Language Models</i></li>
+          <li>Hoffmann i in. (2022) — <i>Training Compute-Optimal LLMs</i> („Chinchilla”)</li>
+          <li>Meng i in. (2022) — <i>Locating and Editing Factual Associations in GPT</i></li>
+          <li>Ouyang i in. (2022) — <i>Training language models to follow instructions</i> (InstructGPT)</li>
+          <li>Bai i in. (2022) — <i>Constitutional AI</i></li>
+          <li>Rafailov i in. (2023) — <i>Direct Preference Optimization</i></li>
+          <li>Sharma i in. (2023) — <i>Towards Understanding Sycophancy in LMs</i></li>
+          <li>Schaeffer i in. (2023) — <i>Are Emergent Abilities a Mirage?</i></li>
+          <li>Templeton i in. (2024) — <i>Scaling Monosemanticity</i></li>
+          <li>Greenblatt i in. (2024) — <i>Alignment Faking in LLMs</i></li>
+          <li>Betley i in. (2025) — <i>Emergent Misalignment</i></li>
+          <li>Lindsey i in. (2025) — <i>On the Biology of a Large Language Model</i></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</section>

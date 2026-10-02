@@ -1,0 +1,119 @@
+.mlp-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .mlp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.mlp-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.mlp-svg .cap {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  fill: var(--dim);
+  text-transform: uppercase;
+}
+.mlp-svg .cell {
+  fill: rgba(255, 255, 255, 0.05);
+  stroke: rgba(255, 255, 255, 0.12);
+}
+.mlp-svg .neuron {
+  fill: rgba(255, 255, 255, 0.07);
+  stroke: rgba(255, 255, 255, 0.14);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.mlp-svg .neuron.on {
+  fill: var(--accent);
+  stroke: #fff;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+.mlp-svg .wire {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  opacity: 0.35;
+}
+.mlp-svg .wire.out {
+  stroke: var(--mint);
+}
+.mlp-svg .plus {
+  font-family: var(--serif);
+  font-size: 30px;
+  fill: var(--accent);
+}
+.mlp-pred {
+  display: grid;
+  gap: 24px;
+}
+.mlp-when {
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+.mlp-bars {
+  display: grid;
+  gap: 8px;
+}
+.mlp-bar {
+  display: grid;
+  grid-template-columns: 96px 1fr 46px;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+.mlp-bar .tr {
+  height: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+.mlp-bar .tr i {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  transform-origin: 0 50%;
+}
+.mlp-bar.top {
+  color: var(--text);
+}
+.mlp-bar.top .tr i {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+.mlp-bar .pv {
+  text-align: right;
+}
+.mlp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 64px;
+  align-content: flex-start;
+}
+.mlp-chips span {
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--text);
+}
+.mlp-chips span.poly {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--line-2);
+  color: var(--muted);
+}
+.mlp-replay {
+  margin-top: 18px;
+}

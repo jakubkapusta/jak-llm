@@ -1,0 +1,72 @@
+<section class="chapter" id="embeddingi" data-chapter="03" data-title="Embeddingi" data-accent="violet">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">03</span><span>Embeddingi</span></div>
+      <h2 class="h-display" data-split>Każdy token staje się <em>punktem w przestrzeni znaczeń</em></h2>
+      <p class="lede" data-reveal>
+        Numer tokenu sam w sobie nic nie znaczy — „kot” równie dobrze mógłby mieć numer 7, co 70&nbsp;000.
+        Dlatego pierwszym krokiem sieci jest zamiana numeru na długą listę liczb: <strong>wektor</strong>, zwany
+        embeddingiem. W dużych modelach taki wektor ma kilka, a nawet kilkanaście tysięcy wymiarów.
+      </p>
+    </div>
+
+    <div class="emb" data-reveal>
+      <div class="emb-stage">
+        <canvas class="emb-canvas"></canvas>
+        <div class="emb-labels"></div>
+        <div class="emb-badge mono">3 z ~12 000 wymiarów · <span class="emb-drag">przeciągnij, by obrócić</span></div>
+        <div class="emb-eq mono" aria-live="polite"></div>
+      </div>
+      <aside class="emb-side panel">
+        <div class="panel-label"><span>Arytmetyka znaczeń</span></div>
+        <div class="emb-analogies">
+          <button class="btn small" data-an="0">król − mężczyzna + kobieta</button>
+          <button class="btn small" data-an="1">Paryż − Francja + Polska</button>
+          <button class="btn small" data-an="2">szczeniak − pies + kot</button>
+        </div>
+        <div class="emb-sel">
+          <div class="h-small">Wektor słowa <span class="emb-word">kot</span></div>
+          <div class="emb-strip" data-k="a"></div>
+          <div class="h-small emb-nn-h">Najbliżsi sąsiedzi</div>
+          <div class="emb-nn"></div>
+        </div>
+        <p class="hint">Kliknij dowolne słowo w przestrzeni. Kolory pasków to wartości liczb: <span style="color: var(--cyan)">ujemne</span> i <span style="color: var(--amber)">dodatnie</span>.</p>
+      </aside>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Nikt tych liczb <em>nie wpisał ręcznie</em></h3>
+        <p>
+          Na początku treningu wektory są zupełnie losowe. Ale model, ucząc się przewidywać następne słowo,
+          stopniowo przesuwa je tak, żeby słowa występujące w podobnych kontekstach lądowały blisko siebie.
+          „Kot” i „pies” pojawiają się w podobnych zdaniach, więc ich punkty się zbliżają.
+        </p>
+        <p>
+          Co więcej, <strong>kierunki</strong> w tej przestrzeni zaczynają coś znaczyć. Przesunięcie od „mężczyzny”
+          do „kobiety” jest podobne do przesunięcia od „króla” do „królowej”. Dlatego działa arytmetyka obok.
+          W prawdziwych modelach to zjawisko jest bardziej zaszumione, ale zaskakująco realne.
+        </p>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">A co z <em>kolejnością</em>?</h3>
+        <p>
+          „Pies ugryzł człowieka” i „człowiek ugryzł psa” składają się z tych samych tokenów. Sieć musi więc
+          dodatkowo wiedzieć, <em>gdzie</em> stoi każde słowo. Współczesne modele robią to sprytnie: obracają
+          fragmenty wektora o kąt zależny od pozycji (metoda <strong>RoPE</strong>).
+        </p>
+        <p>
+          Wyobraź sobie zegar z wieloma wskazówkami kręcącymi się z różną prędkością. Szybkie odróżniają
+          sąsiednie słowa, wolne mierzą duże dystanse. Liczy się różnica kątów, czyli
+          <em>jak daleko</em> są od siebie dwa słowa.
+        </p>
+      </div>
+    </div>
+
+    <div class="rope panel block" data-reveal>
+      <div class="panel-label"><span>Pozycja zakodowana jako obroty</span><span>3 z setek „wskazówek”</span></div>
+      <div class="rope-row"></div>
+      <div class="rope-legend mono"><span><i style="background: var(--amber)"></i>szybka</span><span><i style="background: var(--violet)"></i>średnia</span><span><i style="background: var(--cyan)"></i>wolna</span></div>
+    </div>
+  </div>
+</section>

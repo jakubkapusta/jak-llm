@@ -1,0 +1,265 @@
+.tk-play .panel-label {
+  margin-bottom: 14px;
+}
+.tk-input {
+  width: 100%;
+  resize: vertical;
+  min-height: 90px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--line-2);
+  background: rgba(0, 0, 0, 0.35);
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.tk-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.tk-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+  align-items: flex-end;
+  margin: 18px 0;
+}
+.tk-stats > div {
+  display: grid;
+}
+.tk-stats b {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--accent);
+}
+.tk-stats span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+.tk-ids-toggle {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tk-ids-toggle input {
+  accent-color: var(--accent);
+}
+.tk-out {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 3px;
+  min-height: 60px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px dashed var(--line);
+  font-family: var(--mono);
+  font-size: 0.98rem;
+  line-height: 1;
+  align-content: flex-start;
+}
+.tk-loading {
+  color: var(--dim);
+  font-size: 0.85rem;
+}
+.tok {
+  --c: 124, 200, 255;
+  display: inline-grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 6px 5px;
+  border-radius: 7px;
+  background: rgba(var(--c), 0.16);
+  box-shadow: inset 0 0 0 1px rgba(var(--c), 0.38);
+  color: rgb(var(--c));
+  white-space: pre;
+  animation: tokIn 0.45s var(--ease-out) both;
+}
+.tok .id {
+  display: none;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.show-ids .tok .id {
+  display: block;
+}
+.tok .sp {
+  opacity: 0.45;
+}
+.tok.multi {
+  background: repeating-linear-gradient(135deg, rgba(var(--c), 0.18) 0 6px, rgba(var(--c), 0.08) 6px 12px);
+}
+.tok.multi sup {
+  font-size: 0.6rem;
+  color: var(--muted);
+  margin-left: 2px;
+}
+.tok.nl {
+  flex-basis: 100%;
+  height: 0;
+  padding: 0;
+  box-shadow: none;
+  background: none;
+}
+@keyframes tokIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.92);
+  }
+}
+
+/* BPE */
+.bpe-word {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 56px;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  margin-bottom: 18px;
+}
+.bpe-tok {
+  padding: 8px 9px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+}
+.bpe-tok.hit {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 0 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  color: #fff;
+}
+.bpe-tok.fresh {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent);
+  color: var(--accent);
+}
+.bpe-rule {
+  font-size: 0.92rem;
+  color: var(--muted);
+  min-height: 1.6em;
+  margin-bottom: 16px;
+}
+.bpe-rule b {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-weight: 500;
+}
+.bpe-vocab {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 34px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+.bpe-vocab::before {
+  content: 'nowe tokeny w słowniku:';
+  width: 100%;
+  font-size: 0.72rem;
+  color: var(--dim);
+  font-family: var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.bpe-vocab span {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+}
+.bpe-ctrl {
+  display: flex;
+  gap: 8px;
+}
+
+/* porównanie PL/EN */
+.tk-compare {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .tk-compare {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.tkc-rows {
+  display: grid;
+  gap: 22px;
+}
+.tkc-row {
+  display: grid;
+  gap: 10px;
+}
+.tkc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+.tkc-head b {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 400;
+  color: var(--text);
+}
+.tkc-row.pl .tkc-head b {
+  color: var(--accent);
+}
+.tkc-toks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  font-family: var(--mono);
+  font-size: 0.86rem;
+}
+.tkc-toks .tok {
+  padding: 4px 3px;
+  animation: none;
+}
+.tkc-meter {
+  height: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+.tkc-meter i {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.35);
+  transform-origin: 0 50%;
+}
+.tkc-row.pl .tkc-meter i {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+.tkc-note {
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.tkc-note b {
+  color: var(--accent);
+}

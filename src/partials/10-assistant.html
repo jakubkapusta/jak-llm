@@ -1,0 +1,90 @@
+<section class="chapter" id="asystent" data-chapter="10" data-title="Asystent" data-accent="violet">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">10</span><span>Od modelu do asystenta</span></div>
+      <h2 class="h-display" data-split>Od <em>autouzupełniacza</em> do asystenta</h2>
+      <p class="lede" data-reveal>
+        Po pretreningu mamy <strong>model bazowy</strong>: fenomenalny symulator tekstów z internetu. Ale to jeszcze
+        nie asystent. Zadaj mu pytanie, a on… dopisze ciąg dalszy, jakby to był fragment forum, testu albo zeszytu
+        ćwiczeń. Przecież tak właśnie wyglądają pytania w jego danych.
+      </p>
+    </div>
+
+    <div class="cmp panel" data-reveal>
+      <div class="panel-label">
+        <span>Ten sam tekst wejściowy, dwa modele</span>
+        <div class="seg cmp-pick">
+          <button class="on" data-c="0">Jak upiec chleb?</button>
+          <button data-c="1">Wiersz o kocie</button>
+          <button data-c="2">15% z 80</button>
+        </div>
+      </div>
+      <div class="cmp-grid">
+        <div class="cmp-col base">
+          <div class="cmp-h"><span class="dot"></span>Model bazowy <small>po samym pretreningu</small></div>
+          <pre class="cmp-out"></pre>
+        </div>
+        <div class="cmp-col inst">
+          <div class="cmp-h"><span class="dot"></span>Asystent <small>po dostrojeniu</small></div>
+          <pre class="cmp-out"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="pipe block" data-reveal>
+      <svg class="pipe-line" viewBox="0 0 1000 8" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="4" x2="1000" y2="4" /></svg>
+      <div class="pipe-step">
+        <span class="pipe-n mono">01</span>
+        <h3>Pretrening</h3>
+        <p class="pipe-sub">czyta internet</p>
+        <p>Biliony tokenów, miesiące obliczeń i zdecydowana większość kosztów. Wynik: model, który wie bardzo dużo, ale nie umie rozmawiać.</p>
+      </div>
+      <div class="pipe-step">
+        <span class="pipe-n mono">02</span>
+        <h3>Dostrajanie (SFT)</h3>
+        <p class="pipe-sub">uczy się formy rozmowy</p>
+        <p>Dziesiątki lub setki tysięcy wzorcowych dialogów, pisanych przez ludzi (i coraz częściej przez inne modele). Wynik: model odpowiada jak asystent.</p>
+      </div>
+      <div class="pipe-step">
+        <span class="pipe-n mono">03</span>
+        <h3>Uczenie ze wzmocnieniem</h3>
+        <p class="pipe-sub">uczy się, co jest dobre</p>
+        <p>Oceny ludzi, oceny innych modeli, nagrody za poprawne rozwiązania. Wynik: model bardziej pomocny, uczciwy i ostrożny. To serce alignmentu — o nim za chwilę.</p>
+      </div>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Tajemnica <em>szablonu czatu</em></h3>
+        <p>
+          Rozmowa z chatbotem wygląda jak wymiana wiadomości. Ale model wciąż robi tylko jedno: dopisuje tekst.
+          Cała konwersacja jest sklejana w jeden długi dokument z <strong>tokenami specjalnymi</strong>, które
+          oznaczają, kto mówi. Model dopisuje kolejną wypowiedź „asystenta” — i zatrzymuje się na tokenie końca.
+        </p>
+        <p>
+          Model nie pamięta też rozmowy między wiadomościami. Przy każdej odpowiedzi dostaje <em>cały zapis od
+          początku</em>. A na samej górze często jest ukryty <strong>prompt systemowy</strong> — instrukcja od twórców
+          aplikacji, której zwykle nie widać.
+        </p>
+        <p>
+          W pewnym sensie „asystent” to postać, którą model nauczył się odgrywać. Model bazowy umie naśladować
+          każdego autora z internetu. Dostrajanie wybiera z nich jedną postać i ją utrwala.
+        </p>
+      </div>
+      <div class="chat panel" data-reveal>
+        <div class="panel-label">
+          <span>Rozmowa</span>
+          <button class="btn small chat-toggle">Pokaż, co widzi model</button>
+        </div>
+        <div class="chat-view">
+          <div class="bubble sys"><b>system</b>Jesteś pomocnym asystentem. Dziś jest 2 października 2026.</div>
+          <div class="bubble user">Jak upiec chleb?</div>
+          <div class="bubble asst">Najprostszy chleb wymaga czterech składników: mąki, wody, soli i drożdży…</div>
+          <div class="bubble user">A na zakwasie?</div>
+          <div class="bubble asst typing"><i></i><i></i><i></i></div>
+        </div>
+        <pre class="chat-raw" hidden></pre>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+.params-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.params-n {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1;
+  color: var(--accent);
+  text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.params-cap {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+.params-canvas {
+  width: 100%;
+  height: 360px;
+  display: block;
+}
+@media (max-width: 640px) {
+  .params-canvas {
+    height: 300px;
+  }
+}
+
+.law-svg,
+.emer-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.law-svg .ax,
+.emer-svg .ax {
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1;
+}
+.law-svg .gridl,
+.emer-svg .gridl {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+.law-svg text,
+.emer-svg text {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--muted);
+}
+.law-svg .fit {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+.law-svg .extra {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 5 6;
+  opacity: 0.6;
+}
+.law-svg .pt {
+  fill: #fff;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.law-svg .lbl-acc {
+  fill: var(--accent);
+}
+.emer-svg .curve {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px var(--accent));
+  transition: d 0.9s var(--ease-out);
+}
+.emer-svg .dot {
+  fill: #fff;
+  stroke: var(--accent);
+  stroke-width: 2;
+  transition: cy 0.9s var(--ease-out);
+}

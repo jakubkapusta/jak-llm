@@ -1,0 +1,149 @@
+.ls-rows {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.ls-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 58px;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+.ls-row .tr {
+  height: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+.ls-row .tr i {
+  display: block;
+  height: 100%;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.28);
+  transition: width 0.5s var(--ease-out);
+}
+.ls-row.ok {
+  color: var(--text);
+}
+.ls-row.ok .tr i {
+  background: var(--mint);
+  box-shadow: 0 0 12px var(--mint);
+}
+.ls-row.ok span:first-child::after {
+  content: ' ✓';
+  color: var(--mint);
+}
+.ls-row .pv {
+  text-align: right;
+}
+.ls-loss {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  margin-bottom: 14px;
+}
+.ls-loss .h-small {
+  display: block;
+  margin-bottom: 6px;
+}
+.ls-lv {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--accent);
+}
+.ls-spark {
+  width: 220px;
+  height: 56px;
+  max-width: 50%;
+}
+.ls-ctrl {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.land-stage {
+  position: relative;
+  height: min(78vh, 680px);
+  min-height: 460px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%), rgba(0, 0, 0, 0.35);
+}
+.land-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+@media (pointer: coarse) {
+  .land-canvas {
+    touch-action: pan-y;
+  }
+}
+.land-hud {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: min(320px, calc(100% - 32px));
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  background: rgba(10, 10, 18, 0.72);
+}
+.land-hud .panel-label {
+  margin: 0;
+}
+.land-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.land-chart {
+  width: 100%;
+  height: 90px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.land-msg {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  min-height: 2.6em;
+}
+.land-msg b {
+  color: var(--text);
+}
+@media (max-width: 640px) {
+  .land-stage {
+    height: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .land-canvas {
+    position: relative;
+    height: 340px;
+  }
+  .land-hud {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    border-width: 1px 0 0;
+  }
+}
+.tr-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}

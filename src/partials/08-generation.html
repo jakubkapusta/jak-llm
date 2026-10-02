@@ -1,0 +1,68 @@
+<section class="chapter" id="petla" data-chapter="08" data-title="Pętla generowania" data-accent="mint">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">08</span><span>Generowanie</span></div>
+      <h2 class="h-display" data-split>Pętla: <em>token za tokenem</em></h2>
+      <p class="lede" data-reveal>
+        Mamy jedno słowo. Jak powstaje cała odpowiedź? Bardzo prosto: wylosowany token doklejamy na koniec tekstu
+        i <strong>uruchamiamy cały model od nowa</strong>. I znowu. I znowu. Aż model wylosuje specjalny token
+        „koniec”. Dlatego odpowiedzi pojawiają się na ekranie kawałek po kawałku.
+      </p>
+    </div>
+
+    <div class="gen panel" data-reveal>
+      <div class="panel-label">
+        <span class="live gen-status">krok 0</span>
+        <div class="gen-ctrl">
+          <button class="btn small gen-play">❚❚ pauza</button>
+          <button class="btn small gen-reset">↺ od nowa</button>
+        </div>
+      </div>
+      <div class="gen-stage">
+        <div class="gen-ctx-wrap">
+          <div class="h-small">Kontekst <span class="gen-n mono"></span></div>
+          <div class="gen-ctx"></div>
+          <div class="h-small gen-kv-h">Pamięć podręczna KV</div>
+          <div class="gen-kv"></div>
+        </div>
+        <div class="gen-model">
+          <div class="gen-core"><span>model</span></div>
+          <div class="gen-dist"></div>
+        </div>
+      </div>
+      <div class="gen-stats mono">
+        <span class="gen-new"></span>
+        <span class="gen-cached"></span>
+      </div>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Sztuczka z <em>pamięcią podręczną</em></h3>
+        <p>
+          Liczenie wszystkiego od nowa przy każdym słowie byłoby marnotrawstwem. Klucze i wartości (K i V z
+          rozdziału o uwadze) dla starych tokenów się nie zmieniają, bo stare tokeny nie widzą nowych. Można je więc
+          zapamiętać w tzw. <strong>KV cache</strong> i w każdym kroku przepuszczać przez sieć tylko jeden, nowy token.
+        </p>
+        <p>
+          Stąd dwa etapy, które dobrze widać przy korzystaniu z chatbota: chwila ciszy, gdy model „wczytuje” całe
+          pytanie naraz (to szybkie, bo równoległe), a potem równy strumień słów, z których każde wymaga osobnego
+          przejścia przez całą sieć.
+        </p>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Czy model <em>planuje</em>?</h3>
+        <p>
+          Skoro model wypisuje po jednym tokenie, to może nie ma pojęcia, dokąd zmierza? Okazuje się, że nie do końca.
+          Badacze zaglądający do wnętrza modeli odkryli, że przy pisaniu wiersza model potrafi „wybrać” słowo do rymu,
+          zanim zacznie pisać wers, który ma się na nie kończyć.
+        </p>
+        <p>
+          Pisze więc po jednym słowie, ale w jego wewnętrznych wektorach może już siedzieć zarys tego, co nadejdzie.
+          Jedyną „pamięcią” między krokami jest jednak sam tekst (i cache), więc plan musi być za każdym razem
+          odtwarzany na nowo.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

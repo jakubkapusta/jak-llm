@@ -1,0 +1,93 @@
+<section class="chapter" id="tokeny" data-chapter="02" data-title="Tokenizacja" data-accent="cyan">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">02</span><span>Tokenizacja</span></div>
+      <h2 class="h-display" data-split>Model nie czyta liter. <em>Czyta tokeny.</em></h2>
+      <p class="lede" data-reveal>
+        Zanim tekst trafi do sieci, zostaje pocięty na kawałki zwane <strong>tokenami</strong>: całe słowa, fragmenty słów,
+        pojedyncze znaki, spacje. Każdy token ma swój numer w słowniku. Od tego momentu model nie widzi już żadnych
+        liter — widzi tylko ciąg liczb.
+      </p>
+    </div>
+
+    <div class="tk-play panel" data-reveal>
+      <div class="panel-label">
+        <span class="live">Prawdziwy tokenizer, działa w Twojej przeglądarce</span>
+        <div class="seg tk-enc" role="tablist">
+          <button data-enc="o200k" class="on">GPT-4o (2024)</button>
+          <button data-enc="r50k">GPT-2 (2019)</button>
+        </div>
+      </div>
+      <textarea class="tk-input" rows="3" spellcheck="false" aria-label="Tekst do tokenizacji">Kot usiadł na parapecie i patrzył przez okno. Nieprzewidywalność to cecha języka 🐈</textarea>
+      <div class="tk-stats">
+        <div><b class="tk-chars">0</b><span>znaków</span></div>
+        <div><b class="tk-count">0</b><span>tokenów</span></div>
+        <div><b class="tk-ratio">0</b><span>znaków na token</span></div>
+        <label class="tk-ids-toggle"><input type="checkbox" class="tk-ids" /> pokaż numery tokenów</label>
+      </div>
+      <div class="tk-out" aria-live="polite"><span class="tk-loading">Ładuję słownik tokenizera…</span></div>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Jak powstaje słownik? <em>BPE</em></h3>
+        <p>
+          Najpopularniejsza metoda to <strong>Byte Pair Encoding</strong>. Zaczynamy od pojedynczych znaków
+          (a dokładniej bajtów). Potem w gigantycznym zbiorze tekstów szukamy pary sąsiadów, która występuje
+          najczęściej — i sklejamy ją w nowy token. I znowu. I znowu.
+        </p>
+        <p>
+          Po około 50–200 tysiącach takich sklejeń mamy słownik, w którym częste słowa są pojedynczymi tokenami,
+          a rzadkie składa się z kawałków. Dzięki temu model poradzi sobie z <em>każdym</em> tekstem — nawet
+          ze słowem, którego nigdy nie widział.
+        </p>
+        <p class="hint">Obok: uproszczona symulacja sklejania dla jednego, wyjątkowo polskiego słowa.</p>
+      </div>
+      <div class="bpe panel" data-reveal>
+        <div class="panel-label"><span>Sklejanie par krok po kroku</span><span class="bpe-step">krok 0</span></div>
+        <div class="bpe-word"></div>
+        <div class="bpe-rule"><span class="bpe-rule-text">Start: każdy znak to osobny token</span></div>
+        <div class="bpe-vocab"></div>
+        <div class="bpe-ctrl">
+          <button class="btn small bpe-prev" aria-label="Poprzedni krok">←</button>
+          <button class="btn small bpe-play">❚❚ pauza</button>
+          <button class="btn small bpe-next" aria-label="Następny krok">→</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="tk-compare" data-reveal>
+        <div class="prose">
+          <h3 class="h-mid">Dlaczego polski jest <em>droższy</em>?</h3>
+          <p>
+            Słownik budowano głównie na tekstach angielskich. Angielskie słowa częściej są jednym tokenem,
+            polskie — z odmianą przez przypadki i mnóstwem form — rozpadają się na kawałki. Więcej tokenów
+            to więcej obliczeń, wyższy rachunek za API i szybciej zapełnione okno kontekstu.
+          </p>
+        </div>
+        <div class="tkc-rows"></div>
+      </div>
+    </div>
+
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: zagadka truskawki</summary>
+      <div class="deep-body">
+        <p>
+          Słynny przykład: zapytany, ile liter „r” jest w angielskim słowie <code class="t">strawberry</code>,
+          model przez długi czas się mylił. Dlaczego? Bo nie widzi liter! Dla niego to kilka tokenów —
+          <span class="tk-straw mono">…</span> — czyli kilka liczb. Żeby policzyć litery, musi „pamiętać”,
+          z jakich liter składa się każdy token, a tego nikt mu wprost nie powiedział.
+        </p>
+        <p>
+          Podobnie z rymami, pisaniem wspak czy działaniami na długich liczbach: wszystko, co wymaga
+          zaglądania do wnętrza tokenu, jest dla modelu zaskakująco trudne.
+        </p>
+        <p>
+          W słowniku są też <strong>tokeny specjalne</strong>, których nie da się wpisać z klawiatury, np. znacznik
+          „koniec tekstu” albo „teraz mówi użytkownik”. Wrócimy do nich w rozdziale 10.
+        </p>
+      </div>
+    </details>
+  </div>
+</section>

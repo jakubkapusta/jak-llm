@@ -1,0 +1,88 @@
+<section class="chapter" id="trening" data-chapter="09" data-title="Trening" data-accent="amber">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">09</span><span>Trening</span></div>
+      <h2 class="h-display" data-split>Skąd model to wszystko wie? <em>Z bilionów drobnych poprawek.</em></h2>
+      <p class="lede" data-reveal>
+        Na początku wszystkie miliardy parametrów są losowe, a model produkuje bełkot. Trening wygląda tak: bierzemy
+        fragment prawdziwego tekstu, każemy modelowi zgadywać kolejne słowa, sprawdzamy, jak bardzo się pomylił,
+        i <strong>leciutko przesuwamy każdy parametr</strong> w stronę, która zmniejszyłaby błąd. Potem następny
+        fragment. I tak biliony razy.
+      </p>
+    </div>
+
+    <div class="two-col">
+      <div class="lesson panel" data-reveal>
+        <div class="panel-label"><span class="live">Jedna lekcja</span><span>„Kot usiadł na <u>parapecie</u>”</span></div>
+        <div class="ls-rows"></div>
+        <div class="ls-loss">
+          <div>
+            <span class="h-small">Błąd (strata)</span>
+            <b class="ls-lv">—</b>
+          </div>
+          <canvas class="ls-spark" width="220" height="56"></canvas>
+        </div>
+        <div class="ls-ctrl">
+          <button class="btn primary ls-step">Krok treningu</button>
+          <button class="btn ls-ten">× 10</button>
+          <button class="btn small ls-reset">↺</button>
+        </div>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Jak mierzyć <em>pomyłkę</em>?</h3>
+        <p>
+          Patrzymy tylko na jedno: ile prawdopodobieństwa model dał słowu, które <em>naprawdę</em> padło w tekście.
+          Strata to minus logarytm tej liczby. Dał 100%? Strata zero. Dał 1%? Strata 4,6. Dał prawie zero?
+          Strata szybuje w górę.
+        </p>
+        <div class="formula">strata = −ln( p<sub>model</sub>(<span class="hl">„parapecie”</span>) )</div>
+        <p>
+          Każdy krok treningu nieco podbija prawdopodobieństwo prawdziwego słowa kosztem pozostałych.
+          Gdybyśmy uczyli tylko na tym jednym zdaniu, model wykułby je na pamięć. Ale zdań są miliardy, a w części
+          z nich kot siada na kanapie. Model uczy się więc rozkładu, który najlepiej pasuje do wszystkich naraz.
+        </p>
+      </div>
+    </div>
+
+    <div class="land block" data-reveal>
+      <div class="land-stage">
+        <canvas class="land-canvas"></canvas>
+        <div class="land-hud panel">
+          <div class="panel-label"><span class="live">Spadek gradientu</span></div>
+          <div class="slider">
+            <div class="slider-top"><span>Wielkość kroku</span><output class="land-lr-out">0,08</output></div>
+            <input type="range" class="land-lr" min="0.005" max="0.9" step="0.005" value="0.08" aria-label="Wielkość kroku (learning rate)" />
+          </div>
+          <div class="land-btns">
+            <button class="btn small primary land-go">▶ Start</button>
+            <button class="btn small land-new">Nowy punkt startu</button>
+          </div>
+          <canvas class="land-chart" width="300" height="90"></canvas>
+          <p class="land-msg"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Kulka toczy się <em>w dół</em></h3>
+        <p>
+          Wyobraź sobie krajobraz, w którym każdy punkt to jedno ustawienie parametrów, a wysokość to błąd modelu.
+          Trening to toczenie kulki w dół zbocza. <strong>Gradient</strong> mówi, w którą stronę jest najstromiej
+          w dół, a wielkość kroku (<em>learning rate</em>) — jak daleko skoczyć.
+        </p>
+        <p>
+          Za mały krok: trening trwa wieczność. Za duży: kulka przeskakuje dolinę i ląduje coraz wyżej. Sprawdź to
+          suwakiem. Prawdziwy krajobraz ma nie dwa, a setki miliardów wymiarów. Liczenie gradientu dla
+          każdego parametru naraz nazywa się <strong>propagacją wsteczną</strong>.
+        </p>
+      </div>
+      <div class="stat-row tr-stats" data-reveal>
+        <div class="stat"><b>15+ bln</b><span>tokenów tekstu, na których trenowano Llamę 3 (2024)</span></div>
+        <div class="stat"><b>80 000+</b><span>lat czytania bez przerwy — tyle zajęłoby to człowiekowi</span></div>
+        <div class="stat"><b>16 000</b><span>kart GPU H100 pracujących równolegle przy największej Llamie 3.1</span></div>
+        <div class="stat"><b>~30 mln</b><span>godzin pracy GPU na jeden taki trening</span></div>
+      </div>
+    </div>
+  </div>
+</section>

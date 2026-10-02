@@ -1,0 +1,109 @@
+<section class="chapter" id="uwaga" data-chapter="05" data-title="Uwaga" data-accent="cyan">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">05</span><span>Mechanizm uwagi</span></div>
+      <h2 class="h-display" data-split>Uwaga: <em>słowa patrzą na siebie nawzajem</em></h2>
+      <p class="lede" data-reveal>
+        Co znaczy słowo „zamek”? Budowla z wieżami? Suwak przy kurtce? Mechanizm w drzwiach? Samo słowo tego nie mówi
+        — decyduje kontekst. <strong>Uwaga</strong> (ang. <em>attention</em>) to mechanizm, dzięki któremu każdy
+        token może „rozejrzeć się” po wcześniejszych tokenach i pobrać od nich to, co pomoże mu zrozumieć siebie.
+      </p>
+    </div>
+
+    <div class="att panel" data-reveal>
+      <div class="panel-label att-controls">
+        <div class="seg att-sent">
+          <button class="on" data-s="0">kurtka</button>
+          <button data-s="1">wzgórze</button>
+          <button data-s="2">klucz</button>
+        </div>
+        <div class="seg att-head">
+          <button class="on" data-h="0">głowica: znaczenie</button>
+          <button data-h="1">głowica: poprzednie słowo</button>
+          <button data-h="2">głowica: pierwszy token</button>
+        </div>
+      </div>
+      <div class="att-scroll">
+        <div class="att-viz">
+          <svg class="att-arcs" aria-hidden="true"></svg>
+          <div class="att-words"></div>
+        </div>
+      </div>
+      <p class="hint att-hint">Najedź na słowo albo je kliknij, żeby zobaczyć, na które wcześniejsze słowa patrzy. Grubość łuku = siła uwagi.</p>
+      <div class="att-meaning">
+        <div class="h-small">Co po tej warstwie znaczy „zamek”?</div>
+        <div class="att-mbars"></div>
+      </div>
+    </div>
+
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Pytanie, etykieta, <em>treść</em></h3>
+        <p>Jak token decyduje, na kogo patrzeć? Każdy token wytwarza trzy wektory:</p>
+        <ul class="qkv-list">
+          <li><b class="q">Query</b> — „czego szukam?” <span>„zamek” pyta: czy w pobliżu jest coś o ubraniu, budowli, a może o drzwiach?</span></li>
+          <li><b class="k">Key</b> — „co oferuję?” <span>„kurtkę” ogłasza: jestem częścią garderoby.</span></li>
+          <li><b class="v">Value</b> — „co przekażę, jeśli mnie wybierzesz”. <span>Właściwa informacja, która popłynie do pytającego.</span></li>
+        </ul>
+        <p>
+          Query pytającego porównujemy z Key każdego wcześniejszego tokenu (iloczyn skalarny: im bardziej pasują,
+          tym większa liczba). Wyniki zamieniamy na procenty, a potem pobieramy mieszankę Values według tych procentów.
+          Obok widać to krok po kroku, na prawdziwych liczbach.
+        </p>
+      </div>
+      <div class="qkv panel" data-reveal>
+        <div class="panel-label"><span>„Zapiąłem kurtkę na zamek” — liczymy uwagę „zamka”</span></div>
+        <div class="qkv-steps seg">
+          <button class="on" data-q="0">1 · Q i K</button>
+          <button data-q="1">2 · iloczyny</button>
+          <button data-q="2">3 · softmax</button>
+          <button data-q="3">4 · mieszanka V</button>
+        </div>
+        <div class="qkv-body"></div>
+        <p class="qkv-cap"></p>
+      </div>
+    </div>
+
+    <div class="two-col block">
+      <div class="att-matrix-wrap" data-reveal>
+        <div class="att-matrix"></div>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Zakaz <em>podglądania przyszłości</em></h3>
+        <p>
+          Obok cała macierz uwagi dla zdania „Przekręciłem klucz, ale zamek się zaciął”. Każdy wiersz to token,
+          który patrzy, każda kolumna to token, na który patrzy. Prawy górny trójkąt jest zablokowany — to
+          <strong>maska przyczynowa</strong>.
+        </p>
+        <p>
+          Dlaczego? Model uczy się przewidywać następne słowo. Gdyby „zamek” mógł zajrzeć do „zaciął”,
+          trening byłby ściąganiem z odpowiedzi. Dzięki masce model może się uczyć na wszystkich pozycjach
+          zdania naraz — każda udaje, że przyszłość jeszcze nie istnieje.
+        </p>
+        <p>
+          A głowic jest wiele: w GPT-3 było ich 96 w każdej z 96 warstw. Nikt nie przydziela im ról — same
+          się specjalizują. Jedna śledzi poprzednie słowo, inna łączy zaimek z rzeczownikiem, jeszcze inna
+          pilnuje nawiasów w kodzie.
+        </p>
+      </div>
+    </div>
+
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: wzór i jego koszt</summary>
+      <div class="deep-body">
+        <p>Cały mechanizm mieści się w jednej linijce:</p>
+        <div class="formula">Attention(Q, K, V) = softmax( <span class="hl">Q·Kᵀ</span> / √d ) · <span class="hl2">V</span></div>
+        <p>
+          Dzielenie przez √d (pierwiastek z długości wektorów) chroni przed zbyt dużymi liczbami, które
+          sprawiłyby, że softmax wybiera zawsze jeden token. Q, K i V powstają przez pomnożenie wektora tokenu
+          przez trzy macierze wag — i właśnie te macierze model wyuczył w treningu.
+        </p>
+        <p>
+          Haczyk: każdy token porównuje się z każdym. Przy 1000 tokenach to milion porównań, przy 100&nbsp;000
+          — dziesięć miliardów. Dlatego długie konteksty są tak drogie, a inżynierowie wymyślają coraz
+          sprytniejsze sztuczki (np. FlashAttention, uwaga przesuwna, pamięć podręczna KV).
+        </p>
+      </div>
+    </details>
+  </div>
+</section>
