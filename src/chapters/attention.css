@@ -313,10 +313,12 @@
   place-items: center;
   color: rgba(10, 10, 18, 0.8);
   font-size: 0.62rem;
-  transition: transform 0.2s;
+  /* bez przejścia na transform — kłóciłoby się z animacją wejścia z GSAP */
+  transition: box-shadow 0.2s, filter 0.2s;
 }
 .att-matrix .c:hover {
-  transform: scale(1.12);
+  filter: brightness(1.25);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
 }
 .att-matrix .c.lowv {
   color: transparent;

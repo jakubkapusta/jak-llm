@@ -310,6 +310,7 @@ function initMatrix() {
       duration: 0.5,
       ease: 'back.out(2)',
       stagger: { each: 0.012, grid: [n, n], from: 'start' },
+      clearProps: 'transform,opacity',
       scrollTrigger: { trigger: el, start: 'top 80%' },
     })
 }
