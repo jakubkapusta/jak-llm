@@ -25,7 +25,7 @@ Build używa względnych ścieżek (`base: './'`), więc `dist/` działa pod dow
 
 ```
 index.html              szkielet; treść rozdziałów wklejana z src/partials przy buildzie
-src/partials/NN-*.html  treść 14 sekcji (wstęp + 13 rozdziałów)
+src/partials/NN-*.html  treść 15 sekcji (wstęp + 14 rozdziałów, słowniczek w ostatniej)
 src/chapters/*.ts|css   interaktywne elementy każdego rozdziału
 src/lib/                płynny scroll, animacje wejścia, nawigacja, narzędzia
 ```
@@ -45,7 +45,8 @@ src/lib/                płynny scroll, animacje wejścia, nawigacja, narzędzia
 | 10 | Asystent            | model bazowy vs asystent, ukryty szablon czatu                  |
 | 11 | Alignment           | głosowanie A/B → model nagrody, smycz KL i hakowanie nagrody, konstytucja, wyzwania, sterowanie cechą, spektrum „matematyka ↔ psychologia” |
 | 12 | Skala               | ściana parametrów, prawa skalowania, emergencja vs miara        |
-| 13 | Granice i przyszłość| halucynacje, kontekst, rozumowanie, agenci, finał              |
+| 13 | Skąd te umiejętności?| głowica indukcyjna, „przepis na umiejętność”, jak powstała ta strona, debata o kreatywności |
+| 14 | Granice i przyszłość| halucynacje, kontekst, rozumowanie, agenci, finał, słowniczek PL–EN |
 
 Liczby w demonstracjach są ilustracyjne, chyba że zaznaczono inaczej. Tokenizer, softmax, spadek gradientu
 i optimum z karą KL są liczone naprawdę w przeglądarce. Strona respektuje `prefers-reduced-motion`.

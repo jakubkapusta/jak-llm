@@ -1,12 +1,12 @@
 <section class="chapter" id="losowanie" data-chapter="07" data-title="Softmax i losowanie" data-accent="pink">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">07</span><span>Wyjście</span></div>
+      <div class="kicker" data-reveal><span class="num">07</span><span>Wyjście</span><span class="kicker-en">logits · softmax · sampling</span></div>
       <h2 class="h-display" data-split>Od liczb do słowa: <em>softmax i kości do gry</em></h2>
       <p class="lede" data-reveal>
         Na szczycie sieci wektor ostatniego tokenu zostaje porównany z każdym tokenem w słowniku. Wychodzi z tego
         jedna surowa liczba na token, tzw. <strong>logit</strong>: im większa, tym lepiej token pasuje. Funkcja
-        <strong>softmax</strong> zamienia logity na prawdopodobieństwa. A potem… rzucamy kośćmi.
+        <strong>softmax</strong> zamienia logity na prawdopodobieństwa. A potem… rzucamy kośćmi <span class="en">sampling</span>.
       </p>
     </div>
 
@@ -45,17 +45,16 @@
 
     <div class="two-col block">
       <div class="prose" data-reveal>
-        <h3 class="h-mid">Temperatura</h3>
+        <h3 class="h-mid">Temperatura <span class="en">temperature</span></h3>
         <p>
           Przed softmaxem dzielimy logity przez <em>temperaturę</em>. Niska temperatura wyostrza różnice: faworyt
-          zgarnia prawie wszystko, a odpowiedzi stają się przewidywalne i powtarzalne. Przy zerze model zawsze wybiera
-          najlepszy token. Wysoka temperatura spłaszcza rozkład: dochodzą do głosu dziwne, rzadkie słowa.
+          zgarnia prawie wszystko, a odpowiedzi stają się przewidywalne i powtarzalne. Przy zerze model zawsze wybiera najlepszy token — to tzw. dekodowanie zachłanne <span class="en">greedy decoding</span>. Brzmi rozsądnie, ale takie teksty bywają sztywne i lubią wpadać w pętle powtórzeń. Wysoka temperatura spłaszcza rozkład: dochodzą do głosu dziwne, rzadkie słowa.
           Czasem twórcze, częściej bez sensu.
         </p>
         <div class="formula">p<sub>i</sub> = e<sup class="hl">z<sub>i</sub> / T</sup> / Σ<sub>j</sub> e<sup class="hl">z<sub>j</sub> / T</sup></div>
       </div>
       <div class="prose" data-reveal>
-        <h3 class="h-mid">Top-p, czyli <em>odcinamy ogon</em></h3>
+        <h3 class="h-mid">Top-p, czyli <em>odcinamy ogon</em> <span class="en">nucleus sampling</span></h3>
         <p>
           W słowniku są setki tysięcy tokenów i każdy dostaje jakieś drobne prawdopodobieństwo. Razem ten „ogon”
           potrafi być spory, a wylosowanie z niego czegoś absurdalnego psuje tekst. <strong>Top-p</strong> zostawia

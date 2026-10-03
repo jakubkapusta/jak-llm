@@ -1,11 +1,11 @@
 <section class="chapter" id="idea" data-chapter="01" data-title="Wielka idea" data-accent="amber">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">01</span><span>Wielka idea</span></div>
+      <div class="kicker" data-reveal><span class="num">01</span><span>Wielka idea</span><span class="kicker-en">next-token prediction</span></div>
       <h2 class="h-display" data-split>Cała magia to <em>zgadywanie następnego słowa</em></h2>
       <p class="lede" data-reveal>
         Zanim zanurkujemy w szczegóły, najważniejsza rzecz. Model językowy robi dokładnie jedną czynność:
-        dostaje kawałek tekstu i zwraca listę prawdopodobieństw — jakie słowo powinno pojawić się dalej.
+        dostaje kawałek tekstu i zwraca listę prawdopodobieństw <span class="en">probability distribution</span> — jakie słowo powinno pojawić się dalej.
         I tyle. Cała reszta, czyli rozmowy, kod, wiersze, tłumaczenia, wyrasta z tego jednego triku.
       </p>
     </div>
@@ -57,5 +57,14 @@
         <p class="hint">Ten znak zapytania w środku to cała reszta tej strony. Otworzymy go warstwa po warstwie.</p>
       </div>
     </div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: czym właściwie jest „model”?</summary>
+      <div class="deep-body">
+        <p>Model to w gruncie rzeczy jedna gigantyczna funkcja matematyczna. Na wejściu dostaje liczby (numery tokenów), na wyjściu zwraca liczby (prawdopodobieństwa). W środku wykonuje głównie mnożenia macierzy, czyli tablic liczb.</p>
+        <p>Te liczby w macierzach to <strong>parametry</strong> <span class="en">parameters · weights</span>. Gdy słyszysz „model 70B”, chodzi o 70 miliardów takich liczb. Zapisane z 16-bitową precyzją zajmują około 140 GB — dlatego duże modele działają na wyspecjalizowanych kartach graficznych (GPU).</p>
+        <p>Całość nazywa się <strong>siecią neuronową</strong> <span class="en">neural network</span>, bo kiedyś inspirowano się mózgiem: proste jednostki połączone wagami. Ale to luźna inspiracja, nie kopia.</p>
+        <p>Ważne: przy zwykłym używaniu modelu <span class="en">inference</span> parametry się nie zmieniają. Model nie uczy się z rozmowy; parametry zmieniają się tylko w czasie treningu.</p>
+      </div>
+    </details>
   </div>
 </section>

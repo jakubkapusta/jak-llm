@@ -1,11 +1,11 @@
 <section class="chapter" id="uwaga" data-chapter="05" data-title="Uwaga" data-accent="cyan">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">05</span><span>Mechanizm uwagi</span></div>
+      <div class="kicker" data-reveal><span class="num">05</span><span>Mechanizm uwagi</span><span class="kicker-en">attention</span></div>
       <h2 class="h-display" data-split>Uwaga: <em>słowa patrzą na siebie nawzajem</em></h2>
       <p class="lede" data-reveal>
         Co znaczy słowo „zamek”? Budowla z wieżami? Suwak przy kurtce? Mechanizm w drzwiach? Samo słowo tego nie mówi
-        — decyduje kontekst. <strong>Uwaga</strong> (ang. <em>attention</em>) to mechanizm, dzięki któremu każdy
+        — decyduje kontekst. <strong>Uwaga</strong> <span class="en">attention</span> to mechanizm, dzięki któremu każdy
         token może „rozejrzeć się” po wcześniejszych tokenach i pobrać od nich to, co pomoże mu zrozumieć siebie.
       </p>
     </div>
@@ -41,12 +41,12 @@
         <h3 class="h-mid">Pytanie, etykieta, <em>treść</em></h3>
         <p>Jak token decyduje, na kogo patrzeć? Każdy token wytwarza trzy wektory:</p>
         <ul class="qkv-list">
-          <li><b class="q">Query</b> — „czego szukam?” <span>„zamek” pyta: czy w pobliżu jest coś o ubraniu, budowli, a może o drzwiach?</span></li>
-          <li><b class="k">Key</b> — „co oferuję?” <span>„kurtkę” ogłasza: jestem częścią garderoby.</span></li>
-          <li><b class="v">Value</b> — „co przekażę, jeśli mnie wybierzesz”. <span>Właściwa informacja, która popłynie do pytającego.</span></li>
+          <li><b class="q">Query</b> <small>(zapytanie)</small> — „czego szukam?” <span>„zamek” pyta: czy w pobliżu jest coś o ubraniu, budowli, a może o drzwiach?</span></li>
+          <li><b class="k">Key</b> <small>(klucz)</small> — „co oferuję?” <span>„kurtkę” ogłasza: jestem częścią garderoby.</span></li>
+          <li><b class="v">Value</b> <small>(wartość)</small> — „co przekażę, jeśli mnie wybierzesz”. <span>Właściwa informacja, która popłynie do pytającego.</span></li>
         </ul>
         <p>
-          Query pytającego porównujemy z Key każdego wcześniejszego tokenu (iloczyn skalarny: im bardziej pasują,
+          Query pytającego porównujemy z Key każdego wcześniejszego tokenu (iloczyn skalarny <span class="en">dot product</span>: im bardziej pasują,
           tym większa liczba). Wyniki zamieniamy na procenty, a potem pobieramy mieszankę Values według tych procentów.
           Obok widać to krok po kroku, na prawdziwych liczbach.
         </p>
@@ -71,9 +71,9 @@
       <div class="prose" data-reveal>
         <h3 class="h-mid">Zakaz <em>podglądania przyszłości</em></h3>
         <p>
-          Obok cała macierz uwagi dla zdania „Przekręciłem klucz, ale zamek się zaciął”. Każdy wiersz to token,
+          Obok cała macierz uwagi <span class="en">attention matrix</span> dla zdania „Przekręciłem klucz, ale zamek się zaciął”. Każdy wiersz to token,
           który patrzy, każda kolumna to token, na który patrzy. Prawy górny trójkąt jest zablokowany — to
-          <strong>maska przyczynowa</strong>.
+          <strong>maska przyczynowa</strong> <span class="en">causal mask</span>.
         </p>
         <p>
           Dlaczego? Model uczy się przewidywać następne słowo. Gdyby „zamek” mógł zajrzeć do „zaciął”,
@@ -81,7 +81,7 @@
           zdania naraz — każda udaje, że przyszłość jeszcze nie istnieje.
         </p>
         <p>
-          A głowic jest wiele: w GPT-3 było ich 96 w każdej z 96 warstw. Nikt nie przydziela im ról — same
+          A głowic <span class="en">attention heads</span> jest wiele — stąd nazwa <em>multi-head attention</em>: w GPT-3 było ich 96 w każdej z 96 warstw. Nikt nie przydziela im ról — same
           się specjalizują. Jedna śledzi poprzednie słowo, inna łączy zaimek z rzeczownikiem, jeszcze inna
           pilnuje nawiasów w kodzie.
         </p>
@@ -96,7 +96,8 @@
         <p>
           Dzielenie przez √d (pierwiastek z długości wektorów) chroni przed zbyt dużymi liczbami, które
           sprawiłyby, że softmax wybiera zawsze jeden token. Q, K i V powstają przez pomnożenie wektora tokenu
-          przez trzy macierze wag — i właśnie te macierze model wyuczył w treningu.
+          przez trzy macierze wag <span class="en">W_Q · W_K · W_V</span> — i właśnie te macierze model wyuczył w treningu.</p>
+        <p>Ponieważ tokeny patrzą na tokeny z tego samego tekstu, mówi się o <strong>samouwadze</strong> <span class="en">self-attention</span>. Wyniki wszystkich głowic są sklejane i mnożone przez jeszcze jedną macierz, zanim zostaną dodane do strumienia rezydualnego.
         </p>
         <p>
           Haczyk: każdy token porównuje się z każdym. Przy 1000 tokenach to milion porównań, przy 100&nbsp;000

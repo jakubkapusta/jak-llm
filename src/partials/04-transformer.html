@@ -1,7 +1,7 @@
 <section class="chapter tf" id="transformer" data-chapter="04" data-title="Transformer" data-accent="mint">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">04</span><span>Architektura</span></div>
+      <div class="kicker" data-reveal><span class="num">04</span><span>Architektura</span><span class="kicker-en">transformer architecture</span></div>
       <h2 class="h-display" data-split>Wewnątrz: <em>stos identycznych bloków</em></h2>
       <p class="lede" data-reveal>
         Mamy już wektory. Teraz przepuszczamy je przez <strong>transformer</strong> — architekturę z 2017 roku, na której
@@ -26,27 +26,27 @@
         <div class="tf-step" data-i="1">
           <span class="tf-n mono">2 / 6</span>
           <h3 class="h-mid">Strumień <em>rezydualny</em></h3>
-          <p>Ten pas to <strong>strumień rezydualny</strong> — coś jak wspólna tablica. Kolejne warstwy niczego nie zmazują: czytają, co jest na tablicy, i dopisują swoje poprawki.</p>
+          <p>Ten pas to <strong>strumień rezydualny</strong> <span class="en">residual stream</span> — coś jak wspólna tablica. Kolejne warstwy niczego nie zmazują: czytają, co jest na tablicy, i dopisują swoje poprawki.</p>
         </div>
         <div class="tf-step" data-i="2">
           <span class="tf-n mono">3 / 6</span>
           <h3 class="h-mid">Uwaga: tokeny <em>rozmawiają</em></h3>
-          <p>To jedyne miejsce, w którym tokeny wymieniają się informacjami. Każdy może zajrzeć do tokenów <em>przed sobą</em> i przepisać od nich to, co ważne. Rozbierzemy to na części w następnym rozdziale.</p>
+          <p>To <strong>uwaga</strong> <span class="en">attention</span> — jedyne miejsce, w którym tokeny wymieniają się informacjami. Każdy może zajrzeć do tokenów <em>przed sobą</em> i przepisać od nich to, co ważne. Rozbierzemy to na części w następnym rozdziale.</p>
         </div>
         <div class="tf-step" data-i="3">
           <span class="tf-n mono">4 / 6</span>
           <h3 class="h-mid">MLP: każdy <em>myśli sam</em></h3>
-          <p>Potem każdy token osobno przechodzi przez sieć MLP. To tu siedzi większość parametrów modelu i spora część jego „wiedzy o świecie”.</p>
+          <p>Potem każdy token osobno przechodzi przez sieć MLP <span class="en">feed-forward network</span>. To tu siedzi większość parametrów modelu i spora część jego „wiedzy o świecie”.</p>
         </div>
         <div class="tf-step" data-i="4">
           <span class="tf-n mono">5 / 6</span>
           <h3 class="h-mid">Powtórz… <em>dziesiątki razy</em></h3>
-          <p>Para „uwaga + MLP” to jeden blok. Bloki się powtarzają — GPT-3 miał ich 96. Niższe warstwy zajmują się raczej składnią, wyższe coraz bardziej abstrakcyjnymi pojęciami.</p>
+          <p>Para „uwaga + MLP” to jeden blok, czyli warstwa <span class="en">transformer block · layer</span>. Bloki się powtarzają — GPT-3 miał ich 96. Niższe warstwy zajmują się raczej składnią, wyższe coraz bardziej abstrakcyjnymi pojęciami.</p>
         </div>
         <div class="tf-step" data-i="5">
           <span class="tf-n mono">6 / 6</span>
           <h3 class="h-mid">Wyjście: <em>kolejne słowo</em></h3>
-          <p>Na szczycie bierzemy wektor <em>ostatniego</em> tokenu i zamieniamy go na wynik dla każdego tokenu w słowniku. Z tego powstaje znany już rozkład prawdopodobieństwa.</p>
+          <p>Na szczycie bierzemy wektor <em>ostatniego</em> tokenu i zamieniamy go na wynik dla każdego tokenu w słowniku <span class="en">unembedding</span>. Z tego powstaje znany już rozkład prawdopodobieństwa.</p>
         </div>
       </div>
     </div>
@@ -58,5 +58,16 @@
       „Attention Is All You Need”. Jej autorzy z Google chcieli poprawić tłumaczenie maszynowe. Nie spodziewali się,
       że budują fundament pod ChatGPT i wszystko, co przyszło potem.
     </div>
+  <div class="wrap">
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: czego nie narysowaliśmy</summary>
+      <div class="deep-body">
+        <p><strong>Normalizacja</strong> <span class="en">LayerNorm · RMSNorm</span>. Przed każdą uwagą i każdym MLP wektor jest przeskalowywany tak, by liczby nie rosły w nieskończoność. Bez tego trening głębokich sieci się rozjeżdża.</p>
+        <p><strong>Połączenia rezydualne</strong> <span class="en">residual connections</span>. To, że warstwy <em>dodają</em> swoje wyniki do strumienia, zamiast go zastępować, to nie tylko ładna metafora: dzięki temu sygnał błędu może swobodnie płynąć w dół przez dziesiątki warstw podczas treningu.</p>
+        <p><strong>Tylko dekoder</strong> <span class="en">decoder-only</span>. Oryginalny transformer miał dwie części: enkoder czytający zdanie źródłowe i dekoder piszący tłumaczenie. Modele w stylu GPT zostawiły sam dekoder.</p>
+        <p><strong>Rozmiary.</strong> GPT-3: wektory o 12 288 wymiarach, 96 warstw, po 96 głowic uwagi w każdej — razem 175 mld parametrów.</p>
+      </div>
+    </details>
+  </div>
   </div>
 </section>

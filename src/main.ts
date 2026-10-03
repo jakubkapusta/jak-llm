@@ -15,7 +15,9 @@ import { initTraining } from './chapters/training'
 import { initAssistant } from './chapters/assistant'
 import { initAlignment } from './chapters/alignment'
 import { initScale } from './chapters/scale'
+import { initSkills } from './chapters/skills'
 import { initLimits } from './chapters/limits'
+import { initGlossary } from './chapters/glossary'
 
 document.documentElement.classList.add('js')
 
@@ -35,7 +37,9 @@ const chapters: [string, () => void][] = [
   ['assistant', initAssistant],
   ['alignment', initAlignment],
   ['scale', initScale],
+  ['skills', initSkills],
   ['limits', initLimits],
+  ['glossary', initGlossary],
 ]
 
 for (const [name, init] of chapters) {

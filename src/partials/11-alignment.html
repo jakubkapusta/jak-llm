@@ -1,12 +1,12 @@
 <section class="chapter al" id="alignment" data-chapter="11" data-title="Alignment" data-accent="pink">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">11</span><span>Alignment</span></div>
+      <div class="kicker" data-reveal><span class="num">11</span><span>Alignment</span><span class="kicker-en">AI alignment · AI safety</span></div>
       <h2 class="h-display" data-split>Alignment: <em>matematyka czy psychologia?</em></h2>
       <p class="lede" data-reveal>
         Model po pretreningu umie wszystko, co umie internet — także kłamać, manipulować i z przekonaniem opowiadać
         bzdury. <strong>Alignment</strong> (po polsku: dopasowanie) to zestaw metod, które mają sprawić, żeby model
-        robił to, czego <em>naprawdę</em> chcemy: był pomocny, uczciwy i nieszkodliwy. Brzmi prosto. To jeden z
+        robił to, czego <em>naprawdę</em> chcemy: był pomocny, uczciwy i nieszkodliwy <span class="en">helpful · honest · harmless</span>. Brzmi prosto. To jeden z
         najtrudniejszych problemów w całej dziedzinie.
       </p>
     </div>
@@ -27,15 +27,15 @@
       </div>
       <div class="al-quote" data-reveal>
         <p class="bigquote">„Gdy miara staje się celem, <em>przestaje być dobrą miarą</em>.”</p>
-        <p class="hint">Prawo Goodharta, ekonomia lat 70. Zapamiętaj je — wróci w tym rozdziale kilka razy.</p>
+        <p class="hint"><span class="en">Goodhart’s law</span> Prawo Goodharta, ekonomia lat 70. Zapamiętaj je — wróci w tym rozdziale kilka razy.</p>
       </div>
     </div>
 
     <!-- B. Recepta: przegląd -->
     <div class="al-recipe block" data-reveal>
       <div class="al-r"><span class="mono">krok 1</span><b>Pokazać</b><p>Ludzie piszą wzorcowe odpowiedzi, model je naśladuje (SFT).</p></div>
-      <div class="al-r"><span class="mono">krok 2</span><b>Porównać</b><p>Ludzie wybierają lepszą z dwóch odpowiedzi; z tego powstaje <em>model nagrody</em>.</p></div>
-      <div class="al-r"><span class="mono">krok 3</span><b>Optymalizować</b><p>Model generuje odpowiedzi, model nagrody je ocenia, a RL wzmacnia te wysoko ocenione.</p></div>
+      <div class="al-r"><span class="mono">krok 2</span><b>Porównać</b><p>Ludzie wybierają lepszą z dwóch odpowiedzi; z tego powstaje <em>model nagrody</em> <span class="en">reward model</span>.</p></div>
+      <div class="al-r"><span class="mono">krok 3</span><b>Optymalizować</b><p>Model generuje odpowiedzi, model nagrody je ocenia, a RL wzmacnia te wysoko ocenione. Razem: <span class="en">RLHF · RL from human feedback</span></p></div>
     </div>
 
     <!-- C. Preferencje -->
@@ -82,15 +82,15 @@
     <div class="block">
       <div class="two-col">
         <div class="prose" data-reveal>
-          <h3 class="h-mid">Krok 3: optymalizacja <em>na smyczy</em></h3>
+          <h3 class="h-mid">Krok 3: optymalizacja <em>na smyczy</em> <span class="en">KL penalty</span></h3>
           <p>
             Mamy model nagrody, więc każemy modelowi językowemu generować odpowiedzi i wzmacniamy te, które dostają
-            wysokie noty (np. algorytmem PPO). Tylko że model nagrody to nie prawdziwa jakość — to jej
+            wysokie noty (np. algorytmem PPO <span class="en">Proximal Policy Optimization</span>). Tylko że model nagrody to nie prawdziwa jakość — to jej
             <em>przybliżenie</em>, wyuczone z ograniczonej liczby ocen. Ma luki.
           </p>
           <p>
             Dlatego model trzyma się na <strong>smyczy</strong>: karzemy go za zbytnie oddalanie się od modelu
-            wyjściowego (to tzw. dywergencja KL). Na wykresie obok to dzieje się naprawdę — liczymy optymalny rozkład
+            wyjściowego (to tzw. dywergencja KL <span class="en">KL divergence</span>). Na wykresie obok to dzieje się naprawdę — liczymy optymalny rozkład
             dla każdej długości smyczy.
           </p>
           <div class="formula">maksymalizuj &nbsp;<span class="hl">E[ nagroda ]</span> − β · <span class="hl2">KL( model ‖ model wyjściowy )</span></div>
@@ -159,20 +159,28 @@
         <p>Kliknij kartę, żeby zobaczyć przykład. Każde z tych zjawisk zaobserwowano w prawdziwych modelach.</p>
       </div>
       <div class="ch-grid"></div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: jak się sprawdza bezpieczeństwo modelu?</summary>
+      <div class="deep-body">
+        <p>Przed premierą modele przechodzą baterie testów <span class="en">evals</span>: od zwykłych umiejętności, przez uczciwość i skłonność do pochlebstwa, po niebezpieczne zdolności — np. czy model realnie pomaga w tworzeniu broni biologicznej albo w cyberatakach.</p>
+        <p>Do tego <strong>red teaming</strong> <span class="en">red teaming</span>: ludzie (i inne modele) celowo próbują zmusić model do złego zachowania, a znalezione luki wracają do treningu.</p>
+        <p>Część laboratoriów publikuje zasady odpowiedzialnego skalowania <span class="en">responsible scaling policy</span>: progi zdolności, po których przekroczeniu trzeba wprowadzić silniejsze zabezpieczenia, zanim model trafi do ludzi.</p>
+      </div>
+    </details>
     </div>
 
     <!-- G. Interpretowalność -->
     <div class="block two-col">
       <div class="prose" data-reveal>
-        <h3 class="h-mid">Zajrzeć do głowy: <em>interpretowalność</em></h3>
+        <h3 class="h-mid">Zajrzeć do głowy: <em>interpretowalność</em> <span class="en">interpretability</span></h3>
         <p>
           Skoro zachowanie bywa zwodnicze, może lepiej zajrzeć do środka? Pamiętasz superpozycję z rozdziału o MLP?
-          Badacze nauczyli się rozplątywać ją za pomocą <strong>rzadkich autoenkoderów</strong> — sieci, które
-          rozkładają aktywacje modelu na miliony zrozumiałych „cech”: od „Golden Gate Bridge” po „kod z błędem”
+          Badacze nauczyli się rozplątywać ją za pomocą <strong>rzadkich autoenkoderów</strong> <span class="en">sparse autoencoders · SAE</span> — sieci, które
+          rozkładają aktywacje modelu na miliony zrozumiałych „cech” <span class="en">features</span>: od „Golden Gate Bridge” po „kod z błędem”
           i „próba oszustwa”.
         </p>
         <p>
-          Takie cechy można nie tylko czytać, ale i <strong>sterować</strong> nimi: dodać ich kierunek do strumienia
+          Takie cechy można nie tylko czytać, ale i <strong>sterować</strong> nimi <span class="en">steering</span>: dodać ich kierunek do strumienia
           rezydualnego w trakcie działania. W 2024 roku Anthropic wzmocnił cechę mostu Golden Gate w modelu Claude —
           i model zaczął twierdzić, że <em>jest</em> tym mostem. Obok podobna zabawa z cechą „ocean”.
         </p>

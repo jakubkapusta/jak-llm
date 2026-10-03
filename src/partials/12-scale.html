@@ -1,7 +1,7 @@
 <section class="chapter" id="skala" data-chapter="12" data-title="Skala" data-accent="cyan">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">12</span><span>Skala</span></div>
+      <div class="kicker" data-reveal><span class="num">12</span><span>Skala</span><span class="kicker-en">scaling laws</span></div>
       <h2 class="h-display" data-split>Skala: <em>więcej znaczy inaczej</em></h2>
       <p class="lede" data-reveal>
         Wszystko, co do tej pory widzieliśmy, wymyślono do 2017 roku. To, co wydarzyło się potem, to przede
@@ -30,17 +30,16 @@
 
     <div class="two-col block">
       <div class="prose" data-reveal>
-        <h3 class="h-mid">Prawa skalowania: <em>przewidywalny postęp</em></h3>
+        <h3 class="h-mid">Prawa skalowania: <em>przewidywalny postęp</em> <span class="en">scaling laws</span></h3>
         <p>
           W 2020 roku badacze zauważyli coś niezwykłego. Błąd modelu spada <strong>przewidywalnie</strong>, gdy
-          zwiększamy rozmiar modelu, ilość danych i moc obliczeniową. Na wykresie w skali logarytmicznej to niemal idealna
+          zwiększamy rozmiar modelu, ilość danych i moc obliczeniową <span class="en">compute</span>. Na wykresie w skali logarytmicznej to niemal idealna
           prosta. Można więc z góry przewidzieć, jak dobry będzie model, zanim wyda się na niego setki milionów
           dolarów.
         </p>
         <p>
           W 2022 roku praca „Chinchilla” dodała ważną poprawkę: model i dane trzeba powiększać razem. Wcześniejsze
-          modele były „przekarmione parametrami, niedokarmione danymi”. Optimum to mniej więcej 20 tokenów treningowych
-          na każdy parametr.
+          modele były „przekarmione parametrami, niedokarmione danymi”. Optimum <span class="en">compute-optimal</span> to mniej więcej 20 tokenów treningowych na każdy parametr.
         </p>
       </div>
       <div class="law panel" data-reveal>
@@ -64,7 +63,7 @@
         <h3 class="h-mid">Emergencja: <em>skok czy złudzenie?</em></h3>
         <p>
           Niektóre umiejętności wyglądały, jakby pojawiały się nagle: małe modele nie radzą sobie wcale, a od pewnego
-          rozmiaru — bum, umieją. Nazwano to <strong>zdolnościami emergentnymi</strong> i wywołało to sporo emocji.
+          rozmiaru — bum, umieją. Nazwano to <strong>zdolnościami emergentnymi</strong> <span class="en">emergent abilities</span> i wywołało to sporo emocji.
         </p>
         <p>
           W 2023 roku pokazano, że część tych skoków to efekt sposobu liczenia. Jeśli liczymy tylko odpowiedzi
@@ -77,5 +76,12 @@
         </p>
       </div>
     </div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: czym jest FLOP i ile to jest?</summary>
+      <div class="deep-body">
+        <p>FLOP <span class="en">floating-point operation</span> to jedna operacja na liczbach zmiennoprzecinkowych, np. jedno mnożenie. Przybliżona reguła: trening kosztuje około <strong>6 × liczba parametrów × liczba tokenów</strong> FLOP-ów.</p>
+        <p>Dla Llamy 3.1 405B: 6 × 405 mld × ~15 bln ≈ 3,8 × 10²⁵ operacji. Gdyby każdy z 8 miliardów ludzi na Ziemi wykonywał jedno mnożenie na sekundę, bez przerwy, zajęłoby to około 150 milionów lat.</p>
+      </div>
+    </details>
   </div>
 </section>

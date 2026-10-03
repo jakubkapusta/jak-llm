@@ -1,7 +1,7 @@
 <section class="chapter" id="trening" data-chapter="09" data-title="Trening" data-accent="amber">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">09</span><span>Trening</span></div>
+      <div class="kicker" data-reveal><span class="num">09</span><span>Trening</span><span class="kicker-en">pretraining · gradient descent</span></div>
       <h2 class="h-display" data-split>Skąd model to wszystko wie? <em>Z bilionów drobnych poprawek.</em></h2>
       <p class="lede" data-reveal>
         Na początku wszystkie miliardy parametrów są losowe, a model produkuje bełkot. Trening wygląda tak: bierzemy
@@ -32,7 +32,7 @@
         <h3 class="h-mid">Jak mierzyć <em>pomyłkę</em>?</h3>
         <p>
           Patrzymy tylko na jedno: ile prawdopodobieństwa model dał słowu, które <em>naprawdę</em> padło w tekście.
-          Strata to minus logarytm tej liczby. Dał 100%? Strata zero. Dał 1%? Strata 4,6. Dał prawie zero?
+          Strata <span class="en">loss</span> to minus logarytm tej liczby, czyli tzw. entropia krzyżowa <span class="en">cross-entropy</span>. Dał 100%? Strata zero. Dał 1%? Strata 4,6. Dał prawie zero?
           Strata szybuje w górę.
         </p>
         <div class="formula">strata = −ln( p<sub>model</sub>(<span class="hl">„parapecie”</span>) )</div>
@@ -68,13 +68,13 @@
         <h3 class="h-mid">Kulka toczy się <em>w dół</em></h3>
         <p>
           Wyobraź sobie krajobraz, w którym każdy punkt to jedno ustawienie parametrów, a wysokość to błąd modelu.
-          Trening to toczenie kulki w dół zbocza. <strong>Gradient</strong> mówi, w którą stronę jest najstromiej
+          Trening to toczenie kulki w dół zbocza <span class="en">gradient descent</span>. <strong>Gradient</strong> mówi, w którą stronę jest najstromiej
           w dół, a wielkość kroku (<em>learning rate</em>) — jak daleko skoczyć.
         </p>
         <p>
           Za mały krok: trening trwa wieczność. Za duży: kulka przeskakuje dolinę i ląduje coraz wyżej. Sprawdź to
           suwakiem. Prawdziwy krajobraz ma nie dwa, a setki miliardów wymiarów. Liczenie gradientu dla
-          każdego parametru naraz nazywa się <strong>propagacją wsteczną</strong>.
+          każdego parametru naraz nazywa się <strong>propagacją wsteczną</strong> <span class="en">backpropagation</span>.
         </p>
       </div>
       <div class="stat-row tr-stats" data-reveal>
@@ -84,5 +84,42 @@
         <div class="stat"><b>~30 mln</b><span>godzin pracy GPU na jeden taki trening</span></div>
       </div>
     </div>
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Skąd biorą się <em>dane</em>?</h3>
+        <p>
+          Głównie z publicznego internetu (np. archiwum Common Crawl), z książek, Wikipedii, prac naukowych i z ogromnych
+          ilości kodu z publicznych repozytoriów. Coraz częściej także z danych syntetycznych, czyli tekstów napisanych
+          przez inne modele.
+        </p>
+        <p>
+          Surowy internet to w dużej mierze śmieci: spam, duplikaty, automatycznie generowane strony. Dlatego większość
+          pracy nad danymi to <strong>filtrowanie</strong>: usuwanie duplikatów <span class="en">deduplication</span>, tekstów niskiej jakości,
+          danych osobowych i treści szkodliwych. Potem dobór proporcji: ile kodu, ile matematyki, ile tekstów w jakich
+          językach. Te proporcje mocno wpływają na to, co model będzie umiał.
+        </p>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Czy model <em>zapamiętuje</em> teksty?</h3>
+        <p>
+          Przeważnie nie dosłownie. Parametry modelu zajmują wielokrotnie mniej miejsca niż tekst, na którym się uczył,
+          więc nie da się go po prostu „zapisać”. Model musi <strong>uogólniać</strong> <span class="en">generalization</span>:
+          wyłapywać wzorce, reguły i fakty, które powtarzają się w wielu miejscach.
+        </p>
+        <p>
+          Są wyjątki: teksty, które w danych pojawiają się setki razy (hymny, popularne licencje, znane cytaty), model
+          potrafi wyrecytować słowo w słowo <span class="en">memorization</span>. Gdy model zapamiętuje zamiast uogólniać, mówimy
+          o przeuczeniu <span class="en">overfitting</span>.
+        </p>
+      </div>
+    </div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: paczki, optymalizator, harmonogram</summary>
+      <div class="deep-body">
+        <p>Model nie uczy się na jednym zdaniu naraz, tylko na <strong>paczkach</strong> <span class="en">batch</span>: tysiącach fragmentów tekstu (milionach tokenów) jednocześnie. Gradienty z całej paczki są uśredniane, co daje stabilniejszy kierunek kroku i pozwala rozłożyć pracę na tysiące GPU.</p>
+        <p>Zamiast „gołego” spadku gradientu używa się sprytniejszych <strong>optymalizatorów</strong> <span class="en">optimizer · AdamW</span>, które dla każdego parametru pamiętają, jak zmieniały się jego gradienty, i dobierają mu osobną wielkość kroku.</p>
+        <p>Sama wielkość kroku zmienia się w czasie <span class="en">learning rate schedule</span>: najpierw rośnie od zera (rozgrzewka), potem powoli maleje. Duże modele widzą zwykle każdy fragment danych raz lub kilka razy; pełne przejście przez dane to <em>epoka</em> <span class="en">epoch</span>.</p>
+      </div>
+    </details>
   </div>
 </section>

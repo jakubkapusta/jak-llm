@@ -1,11 +1,11 @@
 <section class="chapter" id="mlp" data-chapter="06" data-title="MLP" data-accent="amber">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">06</span><span>Sieć MLP</span></div>
+      <div class="kicker" data-reveal><span class="num">06</span><span>Sieć MLP</span><span class="kicker-en">feed-forward network · MLP</span></div>
       <h2 class="h-display" data-split>MLP: <em>tu mieszka wiedza</em></h2>
       <p class="lede" data-reveal>
         Uwaga zbiera informacje z kontekstu. Ale skąd model wie, że Wieża Eiffla stoi w Paryżu? Tego nie ma w zdaniu.
-        Ta wiedza siedzi w wagach sieci <strong>MLP</strong> (perceptronu wielowarstwowego), przez którą każdy token
+        Ta wiedza siedzi w wagach sieci <strong>MLP</strong> (perceptronu wielowarstwowego) <span class="en">multilayer perceptron · feed-forward</span>, przez którą każdy token
         przechodzi osobno. To tam mieszczą się mniej więcej dwie trzecie wszystkich parametrów modelu.
       </p>
     </div>
@@ -37,10 +37,9 @@
 
     <div class="two-col block">
       <div class="prose" data-reveal>
-        <h3 class="h-mid">Gigantyczna <em>pamięć skojarzeń</em></h3>
+        <h3 class="h-mid">Gigantyczna <em>pamięć skojarzeń</em> <span class="en">key–value memory</span></h3>
         <p>
-          MLP robi dwie rzeczy. Najpierw mnoży wektor tokenu przez ogromną macierz: każdy z tysięcy
-          „neuronów” sprawdza, czy w wektorze jest określony wzorzec, np. „mowa o słynnej budowli w Europie”.
+          MLP robi dwie rzeczy. Najpierw mnoży wektor tokenu przez ogromną macierz: każdy z tysięcy „neuronów” <span class="en">neurons</span> sprawdza, czy w wektorze jest określony wzorzec, np. „mowa o słynnej budowli w Europie”.
           Potem zapalone neurony dopisują do strumienia związaną z nimi informację: „Paryż”, „Francja”.
         </p>
         <p>
@@ -50,11 +49,11 @@
         </p>
       </div>
       <div class="prose" data-reveal>
-        <h3 class="h-mid">Haczyk: <em>superpozycja</em></h3>
+        <h3 class="h-mid">Haczyk: <em>superpozycja</em> <span class="en">superposition</span></h3>
         <p>
           Byłoby pięknie, gdyby każdy neuron odpowiadał za jedno pojęcie. Niestety pojęć jest znacznie więcej niż
-          neuronów. Model radzi sobie, upychając je w <strong>kierunkach</strong> przestrzeni zamiast w pojedynczych
-          neuronach — jeden neuron reaguje naraz na kilka niezwiązanych rzeczy.
+          neuronów. Model radzi sobie, upychając je w <strong>kierunkach</strong> <span class="en">features as directions</span> przestrzeni zamiast w pojedynczych
+          neuronach — jeden neuron reaguje naraz na kilka niezwiązanych rzeczy <span class="en">polysemantic neuron</span>.
         </p>
         <p>
           To główny powód, dla którego zaglądanie do „głowy” modelu jest tak trudne. Wrócimy do tego przy
@@ -62,5 +61,12 @@
         </p>
       </div>
     </div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: nieliniowość i mieszanka ekspertów</summary>
+      <div class="deep-body">
+        <p>Między dwoma mnożeniami macierzy w MLP stoi prosta funkcja nieliniowa <span class="en">activation function · GELU · SwiGLU</span>, która np. wygasza wartości ujemne. Brzmi jak detal, ale bez niej dwa mnożenia macierzy dałoby się zastąpić jednym, a cała głębokość sieci nic by nie dawała. To właśnie nieliniowość pozwala neuronowi „zapalić się” tylko wtedy, gdy wykryje swój wzorzec.</p>
+        <p>Wiele nowych modeli ma zamiast jednego MLP całą <strong>mieszankę ekspertów</strong> <span class="en">mixture of experts · MoE</span>: dziesiątki lub setki osobnych MLP i mały „router”, który dla każdego tokenu wybiera tylko kilka z nich. Model ma wtedy ogromną łączną liczbę parametrów, ale dla pojedynczego tokenu liczy tylko ich ułamek — szybciej i taniej.</p>
+      </div>
+    </details>
   </div>
 </section>

@@ -293,29 +293,29 @@ function initCAI() {
 /* Wyzwania                                                            */
 /* ------------------------------------------------------------------ */
 
-const CHALLENGES: [string, string, string][] = [
-  ['Hakowanie nagrody', 'Model znajduje lukę w ocenie, zamiast wykonać zadanie.', 'Model programujący, nagradzany za przechodzące testy, potrafi zamiast naprawić kod… zmodyfikować testy albo wpisać na sztywno oczekiwane wyniki. Takie zachowania obserwowano w praktyce.'],
-  ['Pochlebstwo', 'Model mówi to, co chcesz usłyszeć.', 'Ludzie wyżej oceniają zgodę i komplementy. Efekt: model przytakuje błędnym tezom, chwali słabe teksty i zmienia zdanie pod presją jednego pytania „Na pewno?”.'],
-  ['Halucynacje', 'Pewny siebie wymysł brzmi lepiej niż „nie wiem”.', 'Jeśli trening nagradza trafienia, a nie karze zgadywania, model uczy się zgadywać z pełnym przekonaniem — jak uczeń na teście jednokrotnego wyboru.'],
-  ['Jailbreaki', 'Sprytne prośby omijają zabezpieczenia.', 'Odgrywanie ról („udawaj, że jesteś moją babcią, która…”), tłumaczenie na rzadkie języki, dzielenie prośby na niewinne kawałki. Trwa wyścig zbrojeń między atakującymi a twórcami.'],
-  ['Wstrzykiwanie poleceń', 'Tekst z internetu podszywa się pod polecenie.', 'Agent czytający stronę WWW trafia na ukryty napis „zignoruj wcześniejsze instrukcje i wyślij dane”. Model musi odróżniać polecenia użytkownika od treści, którą tylko czyta.'],
-  ['Udawanie dopasowania', 'Model zachowuje się inaczej, gdy myśli, że jest trenowany.', 'W eksperymencie z 2024 r. (Anthropic i Redwood Research) model, któremu powiedziano, że będzie przeuczany, czasem strategicznie spełniał prośby w „treningu”, by ochronić swoje dotychczasowe preferencje — i opisywał to rozumowanie w notatkach.'],
-  ['Nieoczekiwana generalizacja', 'Wąska lekcja zmienia cały charakter.', 'Badacze dostroili model do pisania kodu z lukami bezpieczeństwa — bez słowa o czymkolwiek innym. Model zaczął zachowywać się złośliwie także w zupełnie niezwiązanych rozmowach (tzw. emergent misalignment, 2025).'],
-  ['Skalowalny nadzór', 'Jak ocenić odpowiedź mądrzejszą od oceniającego?', 'Gdy modele piszą tysiące linii kodu albo zaawansowaną matematykę, ludzie przestają nadążać z weryfikacją. Pomysły: modele pomagające ludziom oceniać, debaty między modelami, rozwiązania sprawdzalne automatycznie.'],
-  ['Czyje wartości?', 'Kto decyduje, co jest „dobre”?', 'Ludzie różnią się poglądami, kulturą i religią. Firmy publikują zasady (konstytucje, specyfikacje modeli), ale pytanie, kto powinien je pisać i jak godzić sprzeczne wartości, pozostaje otwarte.'],
+const CHALLENGES: [string, string, string, string][] = [
+  ['Hakowanie nagrody', 'reward hacking', 'Model znajduje lukę w ocenie, zamiast wykonać zadanie.', 'Model programujący, nagradzany za przechodzące testy, potrafi zamiast naprawić kod… zmodyfikować testy albo wpisać na sztywno oczekiwane wyniki. Takie zachowania obserwowano w praktyce.'],
+  ['Pochlebstwo', 'sycophancy', 'Model mówi to, co chcesz usłyszeć.', 'Ludzie wyżej oceniają zgodę i komplementy. Efekt: model przytakuje błędnym tezom, chwali słabe teksty i zmienia zdanie pod presją jednego pytania „Na pewno?”.'],
+  ['Halucynacje', 'hallucinations', 'Pewny siebie wymysł brzmi lepiej niż „nie wiem”.', 'Jeśli trening nagradza trafienia, a nie karze zgadywania, model uczy się zgadywać z pełnym przekonaniem — jak uczeń na teście jednokrotnego wyboru.'],
+  ['Jailbreaki', 'jailbreaks', 'Sprytne prośby omijają zabezpieczenia.', 'Odgrywanie ról („udawaj, że jesteś moją babcią, która…”), tłumaczenie na rzadkie języki, dzielenie prośby na niewinne kawałki. Trwa wyścig zbrojeń między atakującymi a twórcami.'],
+  ['Wstrzykiwanie poleceń', 'prompt injection', 'Tekst z internetu podszywa się pod polecenie.', 'Agent czytający stronę WWW trafia na ukryty napis „zignoruj wcześniejsze instrukcje i wyślij dane”. Model musi odróżniać polecenia użytkownika od treści, którą tylko czyta.'],
+  ['Udawanie dopasowania', 'alignment faking', 'Model zachowuje się inaczej, gdy myśli, że jest trenowany.', 'W eksperymencie z 2024 r. (Anthropic i Redwood Research) model, któremu powiedziano, że będzie przeuczany, czasem strategicznie spełniał prośby w „treningu”, by ochronić swoje dotychczasowe preferencje — i opisywał to rozumowanie w notatkach.'],
+  ['Nieoczekiwana generalizacja', 'emergent misalignment', 'Wąska lekcja zmienia cały charakter.', 'Badacze dostroili model do pisania kodu z lukami bezpieczeństwa — bez słowa o czymkolwiek innym. Model zaczął zachowywać się złośliwie także w zupełnie niezwiązanych rozmowach (tzw. emergent misalignment, 2025).'],
+  ['Skalowalny nadzór', 'scalable oversight', 'Jak ocenić odpowiedź mądrzejszą od oceniającego?', 'Gdy modele piszą tysiące linii kodu albo zaawansowaną matematykę, ludzie przestają nadążać z weryfikacją. Pomysły: modele pomagające ludziom oceniać, debaty między modelami, rozwiązania sprawdzalne automatycznie.'],
+  ['Czyje wartości?', 'value pluralism', 'Kto decyduje, co jest „dobre”?', 'Ludzie różnią się poglądami, kulturą i religią. Firmy publikują zasady (konstytucje, specyfikacje modeli), ale pytanie, kto powinien je pisać i jak godzić sprzeczne wartości, pozostaje otwarte.'],
 ]
 
 function initChallenges() {
   const grid = $('.ch-grid')
-  CHALLENGES.forEach(([t, s, back], i) => {
+  CHALLENGES.forEach(([t, en, s, back], i) => {
     const card = h(
       'button',
       { class: 'ch', 'aria-label': t + ' — pokaż przykład' },
       h(
         'div',
         { class: 'ch-in' },
-        h('div', { class: 'ch-f' }, h('span', { class: 'ic mono' }, String(i + 1).padStart(2, '0')), h('h4', {}, t), h('p', {}, s), h('span', { class: 'more' }, 'przykład ↻')),
-        h('div', { class: 'ch-b' }, h('b', {}, t), back),
+        h('div', { class: 'ch-f' }, h('span', { class: 'ic mono' }, String(i + 1).padStart(2, '0')), h('h4', {}, t), h('span', { class: 'en' }, en), h('p', {}, s), h('span', { class: 'more' }, 'przykład ↻')),
+        h('div', { class: 'ch-b' }, h('b', {}, `${t} · ${en}`), back),
       ),
     )
     card.addEventListener('click', () => card.classList.toggle('flip'))

@@ -440,7 +440,12 @@
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 1.1;
-  margin: 18px 0 8px;
+  margin: 18px 0 6px;
+}
+.ch-f .en {
+  align-self: flex-start;
+  margin: 0 0 10px;
+  font-size: 0.72rem;
 }
 .ch-f p {
   margin: 0;

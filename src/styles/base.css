@@ -310,6 +310,8 @@ button {
 
 .kicker {
   display: inline-flex;
+  flex-wrap: wrap;
+  row-gap: 8px;
   align-items: center;
   gap: 14px;
   font-family: var(--mono);
@@ -607,16 +609,20 @@ input[type='range']::-moz-range-thumb {
   display: none;
 }
 .deep summary::before {
-  content: '+';
-  display: grid;
-  place-items: center;
+  /* plus rysowany dwiema kreskami — znak z fontu nie siedzi idealnie na środku */
+  content: '';
+  flex-shrink: 0;
   width: 22px;
   height: 22px;
   border-radius: 50%;
   border: 1px solid var(--line-2);
-  color: var(--accent);
-  font-size: 0.95rem;
-  transition: transform 0.35s var(--ease-out);
+  background:
+    linear-gradient(var(--accent), var(--accent)) center / 10px 1.5px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) center / 1.5px 10px no-repeat;
+  transition: transform 0.35s var(--ease-out), border-color 0.25s;
+}
+.deep summary:hover::before {
+  border-color: var(--accent);
 }
 .deep[open] summary::before {
   transform: rotate(45deg);
@@ -751,4 +757,42 @@ input[type='range']::-moz-range-thumb {
     opacity: 1;
     transform: none;
   }
+}
+
+/* ---------- angielskie odpowiedniki terminów ---------- */
+
+.en {
+  display: inline-block;
+  margin: 0 0.15em;
+  padding: 0.05em 0.5em 0.1em;
+  border-radius: 99px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.72em;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--accent) 55%, var(--text));
+  vertical-align: 0.12em;
+  white-space: nowrap;
+  text-transform: none;
+}
+.en::before {
+  content: 'ang. ';
+  opacity: 0.55;
+}
+h2 .en,
+h3 .en {
+  font-size: 0.32em;
+  vertical-align: 0.5em;
+}
+.kicker-en {
+  font-family: var(--mono);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--accent) 60%, var(--text));
+  padding-left: 14px;
+  border-left: 1px solid var(--line-2);
 }

@@ -1,10 +1,10 @@
 <section class="chapter" id="asystent" data-chapter="10" data-title="Asystent" data-accent="violet">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">10</span><span>Od modelu do asystenta</span></div>
+      <div class="kicker" data-reveal><span class="num">10</span><span>Od modelu do asystenta</span><span class="kicker-en">post-training · fine-tuning</span></div>
       <h2 class="h-display" data-split>Od <em>autouzupełniacza</em> do asystenta</h2>
       <p class="lede" data-reveal>
-        Po pretreningu mamy <strong>model bazowy</strong>: fenomenalny symulator tekstów z internetu. Ale to jeszcze
+        Po pretreningu mamy <strong>model bazowy</strong> <span class="en">base model</span>: fenomenalny symulator tekstów z internetu. Ale to jeszcze
         nie asystent. Zadaj mu pytanie, a on… dopisze ciąg dalszy, jakby to był fragment forum, testu albo zeszytu
         ćwiczeń. Przecież tak właśnie wyglądają pytania w jego danych.
       </p>
@@ -37,33 +37,36 @@
         <span class="pipe-n mono">01</span>
         <h3>Pretrening</h3>
         <p class="pipe-sub">czyta internet</p>
+        <span class="en">pretraining</span>
         <p>Biliony tokenów, miesiące obliczeń i zdecydowana większość kosztów. Wynik: model, który wie bardzo dużo, ale nie umie rozmawiać.</p>
       </div>
       <div class="pipe-step">
         <span class="pipe-n mono">02</span>
         <h3>Dostrajanie (SFT)</h3>
         <p class="pipe-sub">uczy się formy rozmowy</p>
+        <span class="en">supervised fine-tuning · SFT</span>
         <p>Dziesiątki lub setki tysięcy wzorcowych dialogów, pisanych przez ludzi (i coraz częściej przez inne modele). Wynik: model odpowiada jak asystent.</p>
       </div>
       <div class="pipe-step">
         <span class="pipe-n mono">03</span>
         <h3>Uczenie ze wzmocnieniem</h3>
         <p class="pipe-sub">uczy się, co jest dobre</p>
+        <span class="en">reinforcement learning · RL</span>
         <p>Oceny ludzi, oceny innych modeli, nagrody za poprawne rozwiązania. Wynik: model bardziej pomocny, uczciwy i ostrożny. To serce alignmentu — o nim za chwilę.</p>
       </div>
     </div>
 
     <div class="two-col block">
       <div class="prose" data-reveal>
-        <h3 class="h-mid">Tajemnica <em>szablonu czatu</em></h3>
+        <h3 class="h-mid">Tajemnica <em>szablonu czatu</em> <span class="en">chat template</span></h3>
         <p>
           Rozmowa z chatbotem wygląda jak wymiana wiadomości. Ale model wciąż robi tylko jedno: dopisuje tekst.
-          Cała konwersacja jest sklejana w jeden długi dokument z <strong>tokenami specjalnymi</strong>, które
+          Cała konwersacja jest sklejana w jeden długi dokument z <strong>tokenami specjalnymi</strong> <span class="en">special tokens</span>, które
           oznaczają, kto mówi. Model dopisuje kolejną wypowiedź „asystenta” — i zatrzymuje się na tokenie końca.
         </p>
         <p>
           Model nie pamięta też rozmowy między wiadomościami. Przy każdej odpowiedzi dostaje <em>cały zapis od
-          początku</em>. A na samej górze często jest ukryty <strong>prompt systemowy</strong> — instrukcja od twórców
+          początku</em>. A na samej górze często jest ukryty <strong>prompt systemowy</strong> <span class="en">system prompt</span> — instrukcja od twórców
           aplikacji, której zwykle nie widać.
         </p>
         <p>
@@ -86,5 +89,13 @@
         <pre class="chat-raw" hidden></pre>
       </div>
     </div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: jak wyglądają dane do dostrajania?</summary>
+      <div class="deep-body">
+        <p>Pojedynczy przykład SFT to pytanie użytkownika i wzorcowa odpowiedź asystenta, zapisane w szablonie czatu. Model trenuje się dokładnie tak jak w pretreningu — przewidując następny token — ale błąd liczy się tylko na tokenach odpowiedzi.</p>
+        <p>Na tym etapie model uczy się też formatu (listy, kod w blokach), tonu, odmawiania w określonych sytuacjach i korzystania z narzędzi. Coraz więcej takich danych generują inne modele, a ludzie je weryfikują. Trenowanie mniejszego modelu na odpowiedziach większego nazywa się <strong>destylacją</strong> <span class="en">distillation</span>.</p>
+        <p>Dostrajanie jest zaskakująco tanie w porównaniu z pretreningiem: wiedza już jest w modelu, a uczymy go głównie tego, <em>jak</em> z niej korzystać.</p>
+      </div>
+    </details>
   </div>
 </section>

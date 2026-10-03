@@ -1,0 +1,191 @@
+<section class="chapter" id="umiejetnosci" data-chapter="13" data-title="Skąd te umiejętności?" data-accent="amber">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">13</span><span>Skąd te umiejętności?</span><span class="kicker-en">emergent capabilities</span></div>
+      <h2 class="h-display" data-split>Skąd model umie <em>programować i pisać wiersze?</em></h2>
+      <p class="lede" data-reveal>
+        Nikt nie wpisał do modelu składni Pythona, zasad rymowania ani wiedzy o typografii. A jednak model pisze
+        działające programy, wiersze z puentą i projektuje strony takie jak ta. Skąd? Nie ma jednej odpowiedzi, ale
+        da się ją złożyć z czterech warstw — od najbardziej ogólnej do najbardziej konkretnej.
+      </p>
+    </div>
+
+    <!-- 1. Kompresja -->
+    <div class="two-col">
+      <div class="prose" data-reveal>
+        <span class="sk-layer mono">warstwa 1</span>
+        <h3 class="h-mid">Przewidywanie <em>wymusza zrozumienie</em> <span class="en">compression</span></h3>
+        <p>
+          Wróćmy do rozdziału 1. Żeby trafnie przewidzieć następną linijkę programu z GitHuba, nie wystarczy
+          pamiętać popularnych fraz. Trzeba śledzić, jakie zmienne istnieją, co zwraca funkcja i jaki błąd właśnie
+          poprawia autor. Żeby przewidzieć następny wers wiersza, trzeba „czuć” rytm, rym i obraz, który buduje poeta.
+        </p>
+        <p>
+          Model ma za mało parametrów, żeby zapamiętać wszystkie teksty. Najtańszy sposób, by dobrze je przewidywać,
+          to nauczyć się <strong>procesu, który je wytworzył</strong>: reguł języka, logiki programów, konwencji
+          gatunków. Dlatego mówi się, że trening to kompresja, a dobra kompresja wymaga zrozumienia.
+        </p>
+      </div>
+      <div class="sk-data" data-reveal>
+        <div class="sk-data-row"><b>kod</b><span>miliardy linii z publicznych repozytoriów, razem z historią zmian, zgłoszeniami błędów i dyskusjami</span></div>
+        <div class="sk-data-row"><b>poezja</b><span>wiersze z wielu epok i języków, ale też eseje o nich, analizy szkolne, parodie i tłumaczenia</span></div>
+        <div class="sk-data-row"><b>design</b><span>kod milionów stron internetowych oraz artykuły o kolorze, typografii, układzie i dostępności</span></div>
+        <p class="hint">W danych treningowych umiejętność prawie nigdy nie występuje „sama”. Zawsze towarzyszą jej opisy, wyjaśnienia i spory o to, co jest dobre, a co złe.</p>
+      </div>
+    </div>
+
+    <!-- 2. Obwody -->
+    <div class="block">
+      <div class="two-col">
+        <div class="prose" data-reveal>
+          <span class="sk-layer mono">warstwa 2</span>
+          <h3 class="h-mid">Umiejętności składają się <em>z obwodów</em> <span class="en">circuits</span></h3>
+          <p>
+            Badacze interpretowalności znajdują w modelach konkretne mechanizmy — kombinacje głowic uwagi i neuronów,
+            które razem wykonują jakąś operację. Jednym z pierwszych odkrytych była <strong>głowica indukcyjna</strong>
+            <span class="en">induction head</span>: para głowic, która zauważa, że wzorzec już się pojawił, i
+            kontynuuje go. Obok widać ją w akcji, na nazwisku, którego model nie mógł znać z treningu.
+          </p>
+          <p>
+            Ten prosty mechanizm stoi za <strong>uczeniem w kontekście</strong> <span class="en">in-context learning</span>:
+            dajesz modelowi w poleceniu kilka przykładów, a on łapie wzorzec bez żadnego treningu. Głowice indukcyjne
+            pojawiają się w trakcie treningu dość nagle — dokładnie wtedy, gdy model skokowo poprawia się w tej
+            umiejętności.
+          </p>
+          <p>
+            Później znaleziono kolejne obwody: do dodawania liczb, do planowania rymu przed napisaniem wersu, do
+            rozumowania w dwóch krokach („stolica stanu, w którym leży Dallas” → Teksas → Austin). Złożona umiejętność
+            to wiele takich prostych klocków działających razem.
+          </p>
+        </div>
+        <div class="ind panel" data-reveal>
+          <div class="panel-label"><span class="live">Głowica indukcyjna w akcji</span><span class="ind-step">krok 0 / 4</span></div>
+          <div class="ind-text">
+            <svg class="ind-svg" aria-hidden="true"></svg>
+            <div class="ind-words"></div>
+          </div>
+          <p class="ind-cap"></p>
+          <div class="ind-ctrl">
+            <button class="btn small ind-play">▶ odtwórz</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Ćwiczenia -->
+    <div class="block">
+      <div class="prose" data-reveal>
+        <span class="sk-layer mono">warstwa 3</span>
+        <h3 class="h-mid">Ćwiczenia, <em>czyli trening po treningu</em></h3>
+        <p>
+          Pretrening daje wiedzę, ale z wiedzy nie wynika jeszcze sprawność. Tu umiejętności zaczynają się od siebie
+          różnić — bo różnie da się je ćwiczyć.
+        </p>
+      </div>
+      <div class="sk-two">
+        <div class="sk-card" data-reveal>
+          <span class="mono sk-tag">programowanie</span>
+          <h4>Miliony zadań z automatycznym sprawdzaniem</h4>
+          <p>
+            Kod da się uruchomić. Model dostaje zadanie, pisze rozwiązanie, program uruchamia testy i przyznaje nagrodę,
+            jeśli przechodzą (RL z weryfikowalnymi nagrodami, rozdział 11). Powtórzone miliony razy — coraz częściej
+            w prawdziwym środowisku z terminalem, gdzie model sam uruchamia kod i czyta błędy.
+          </p>
+          <p>
+            To jak student, który najpierw przeczytał wszystkie podręczniki świata, a potem rozwiązał milion zadań
+            z automatycznym sprawdzaniem. Stąd bierze się umiejętność dzielenia problemu na części, debugowania
+            i pisania długiego, spójnego kodu.
+          </p>
+        </div>
+        <div class="sk-card" data-reveal>
+          <span class="mono sk-tag">poezja</span>
+          <h4>Nie ma testów na piękno</h4>
+          <p>
+            Wiersza nie da się „uruchomić”. Zostaje wiedza z pretreningu i <strong>ocena gustu</strong>: ludzie (albo
+            inne modele) porównują dwa wiersze i wybierają lepszy, jak w rozdziale o alignmencie. To słabszy, bardziej
+            zaszumiony sygnał niż test, który przechodzi albo nie.
+          </p>
+          <p>
+            Ma to cenę. Po dostrajaniu modele piszą bezpieczniej, ale bardziej przewidywalnie: lubią te same obrazy,
+            te same rymy, te same puenty. Badacze nazywają to zawężeniem różnorodności
+            <span class="en">mode collapse</span>. Dlatego wiersze modeli bywają poprawne, ale rzadko zaskakujące.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Przepis -->
+    <div class="mix panel block" data-reveal>
+      <div class="panel-label">
+        <span class="live">Przepis na umiejętność</span>
+        <div class="seg mix-pick">
+          <button class="on" data-k="0">złożony kod</button>
+          <button data-k="1">wiersz</button>
+          <button data-k="2">projekt tej strony</button>
+        </div>
+      </div>
+      <div class="mix-bar"></div>
+      <div class="mix-legend"></div>
+      <p class="hint">Proporcje są poglądowe: nikt nie umie dziś zmierzyć, ile umiejętności „pochodzi” z którego etapu. Ale kierunek różnic między trzema przykładami jest dobrze ugruntowany.</p>
+    </div>
+
+    <!-- 4. Ta strona -->
+    <div class="block two-col">
+      <div class="prose" data-reveal>
+        <span class="sk-layer mono">warstwa 4</span>
+        <h3 class="h-mid">A projekt <em>tej strony</em>?</h3>
+        <p>
+          Grafika tej strony nie powstała z obrazków. Model nie maluje pikseli: napisał <strong>tekst</strong> — HTML,
+          CSS, JavaScript i shadery WebGL — który przeglądarka zamienia na obraz. W danych treningowych są miliony
+          stron razem z ich kodem i tysiące artykułów o projektowaniu. Model nauczył się, że „ciemne tło, jeden
+          świecący akcent, duża szeryfowa typografia, dużo powietrza” to zestaw, który ludzie opisują jako elegancki.
+        </p>
+        <p>
+          Czwarta warstwa to <strong>pętla z narzędziami</strong> <span class="en">agent loop</span>: model pisze kod,
+          uruchamia serwer, robi zrzut ekranu, <em>ogląda</em> go (bo widzi obrazy), znajduje błędy i poprawia. Obok kilka
+          prawdziwych momentów z budowy tej strony — także takich, w których zawiodło „oko” modelu.
+        </p>
+      </div>
+      <ol class="build" data-reveal>
+        <li><b>Plan</b><span>Model zaproponował 13 rozdziałów, człowiek zatwierdził i poprosił o rozbudowę alignmentu.</span></li>
+        <li><b>Kod</b><span>Około 9 tysięcy linii TypeScriptu, CSS-a i HTML-a, pisanych plik po pliku.</span></li>
+        <li><b>Zrzut ekranu</b><span>Przestrzeń embeddingów okazała się zbyt zatłoczona — klastry zostały rozsunięte.</span></li>
+        <li><b>Test przewijania</b><span>Dwa różne elementy miały tę samą nazwę klasy, więc skok do rozdziału o MLP lądował w złym miejscu.</span></li>
+        <li class="human"><b>Oko człowieka</b><span>Plus w przyciskach „Dla dociekliwych” nie był wyśrodkowany. Model tego nie zauważył; wyłapał to człowiek.</span></li>
+        <li class="human"><b>Prośba człowieka</b><span>„Dopisz angielskie terminy” — stąd małe etykiety <span class="en">like this</span> w całym tekście.</span></li>
+      </ol>
+    </div>
+
+    <!-- Kreatywność -->
+    <div class="block">
+      <h3 class="h-mid" data-reveal>Czy to <em>prawdziwa</em> kreatywność?</h3>
+      <div class="sk-two">
+        <div class="sk-card debate" data-reveal>
+          <span class="mono sk-tag">sceptycy</span>
+          <h4>„Stochastyczna papuga”</h4>
+          <p>
+            Model tylko przestawia statystycznie prawdopodobne kawałki tekstu, który widział <span class="en">stochastic parrot</span>.
+            Nie ma intencji, przeżyć ani celu; jego „gust” to średnia z danych i ocen. Gdy wymaga się od niego czegoś
+            naprawdę wbrew konwencji, zwykle wraca do utartych schematów.
+          </p>
+        </div>
+        <div class="sk-card debate" data-reveal>
+          <span class="mono sk-tag">optymiści</span>
+          <h4>„Model świata”</h4>
+          <p>
+            Model tworzy teksty i programy, których nigdy wcześniej nie było, łącząc pojęcia w nowe całości.
+            Badania wnętrza modeli pokazują wewnętrzne reprezentacje i plany, a nie tylko statystykę słów
+            <span class="en">world model</span>. Ludzka kreatywność też w dużej mierze polega na nowych połączeniach
+            starych elementów.
+          </p>
+        </div>
+      </div>
+      <div class="callout block" data-reveal>
+        <strong>Rozsądny środek:</strong> modele są bardzo dobre w kreatywności kombinacyjnej — w łączeniu
+        znanych elementów w nowe, sensowne całości. Słabsze są w byciu oryginalnymi wbrew wszystkiemu, co widziały,
+        i w ocenie, które z setek możliwych rozwiązań jest naprawdę wyjątkowe. Dlatego najlepsze efekty daje dziś
+        duet: człowiek z wyczuciem i model z ogromną pamięcią wzorców. Tak jak przy tej stronie.
+      </div>
+    </div>
+  </div>
+</section>

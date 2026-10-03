@@ -1,12 +1,11 @@
 <section class="chapter" id="petla" data-chapter="08" data-title="Pętla generowania" data-accent="mint">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">08</span><span>Generowanie</span></div>
+      <div class="kicker" data-reveal><span class="num">08</span><span>Generowanie</span><span class="kicker-en">autoregressive generation</span></div>
       <h2 class="h-display" data-split>Pętla: <em>token za tokenem</em></h2>
       <p class="lede" data-reveal>
         Mamy jedno słowo. Jak powstaje cała odpowiedź? Bardzo prosto: wylosowany token doklejamy na koniec tekstu
-        i <strong>uruchamiamy cały model od nowa</strong>. I znowu. I znowu. Aż model wylosuje specjalny token
-        „koniec”. Dlatego odpowiedzi pojawiają się na ekranie kawałek po kawałku.
+        i <strong>uruchamiamy cały model od nowa</strong>. I znowu. I znowu. Aż model wylosuje specjalny token „koniec” <span class="en">end-of-sequence · EOS</span>. Dlatego odpowiedzi pojawiają się na ekranie kawałek po kawałku. Taki sposób generowania nazywa się <strong>autoregresyjnym</strong> <span class="en">autoregressive</span>: każdy nowy token zależy od wszystkich poprzednich.
       </p>
     </div>
 
@@ -42,12 +41,11 @@
         <p>
           Liczenie wszystkiego od nowa przy każdym słowie byłoby marnotrawstwem. Klucze i wartości (K i V z
           rozdziału o uwadze) dla starych tokenów się nie zmieniają, bo stare tokeny nie widzą nowych. Można je więc
-          zapamiętać w tzw. <strong>KV cache</strong> i w każdym kroku przepuszczać przez sieć tylko jeden, nowy token.
+          zapamiętać w tzw. <strong>pamięci podręcznej KV</strong> <span class="en">KV cache</span> i w każdym kroku przepuszczać przez sieć tylko jeden, nowy token.
         </p>
         <p>
           Stąd dwa etapy, które dobrze widać przy korzystaniu z chatbota: chwila ciszy, gdy model „wczytuje” całe
-          pytanie naraz (to szybkie, bo równoległe), a potem równy strumień słów, z których każde wymaga osobnego
-          przejścia przez całą sieć.
+          pytanie naraz (to szybkie, bo równoległe) <span class="en">prefill</span>, a potem równy strumień słów, z których każde wymaga osobnego przejścia przez całą sieć <span class="en">decoding</span>.
         </p>
       </div>
       <div class="prose" data-reveal>
@@ -64,5 +62,12 @@
         </p>
       </div>
     </div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: dlaczego pisanie jest wolniejsze niż czytanie?</summary>
+      <div class="deep-body">
+        <p>Wczytywanie pytania przetwarza wszystkie tokeny naraz, więc karty GPU liczą pełną parą. Pisanie idzie po jednym tokenie, a przy każdym trzeba przeczytać z pamięci <em>wszystkie</em> parametry modelu — setki gigabajtów. Wąskim gardłem staje się więc nie szybkość liczenia, tylko przepustowość pamięci <span class="en">memory bandwidth</span>.</p>
+        <p>Sztuczki: obsługiwanie wielu rozmów naraz w jednej paczce <span class="en">batching</span>, zapisywanie parametrów z mniejszą precyzją <span class="en">quantization</span> albo <strong>dekodowanie spekulatywne</strong> <span class="en">speculative decoding</span>: mały, szybki model zgaduje kilka tokenów naprzód, a duży sprawdza je wszystkie w jednym przebiegu.</p>
+      </div>
+    </details>
   </div>
 </section>

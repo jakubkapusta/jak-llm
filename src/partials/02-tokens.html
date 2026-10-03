@@ -1,11 +1,11 @@
 <section class="chapter" id="tokeny" data-chapter="02" data-title="Tokenizacja" data-accent="cyan">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">02</span><span>Tokenizacja</span></div>
+      <div class="kicker" data-reveal><span class="num">02</span><span>Tokenizacja</span><span class="kicker-en">tokenization</span></div>
       <h2 class="h-display" data-split>Model nie czyta liter. <em>Czyta tokeny.</em></h2>
       <p class="lede" data-reveal>
-        Zanim tekst trafi do sieci, zostaje pocięty na kawałki zwane <strong>tokenami</strong>: całe słowa, fragmenty słów,
-        pojedyncze znaki, spacje. Każdy token ma swój numer w słowniku. Od tego momentu model nie widzi już żadnych
+        Zanim tekst trafi do sieci, zostaje pocięty na kawałki zwane <strong>tokenami</strong> <span class="en">tokens</span>: całe słowa, fragmenty słów,
+        pojedyncze znaki, spacje. Każdy token ma swój numer (ID) w słowniku <span class="en">vocabulary</span>. Od tego momentu model nie widzi już żadnych
         liter — widzi tylko ciąg liczb.
       </p>
     </div>
@@ -32,7 +32,7 @@
       <div class="prose" data-reveal>
         <h3 class="h-mid">Jak powstaje słownik? <em>BPE</em></h3>
         <p>
-          Najpopularniejsza metoda to <strong>Byte Pair Encoding</strong>. Zaczynamy od pojedynczych znaków
+          Najpopularniejsza metoda to <strong>Byte Pair Encoding</strong> (BPE, czyli kodowanie par bajtów). Zaczynamy od pojedynczych znaków
           (a dokładniej bajtów). Potem w gigantycznym zbiorze tekstów szukamy pary sąsiadów, która występuje
           najczęściej — i sklejamy ją w nowy token. I znowu. I znowu.
         </p>
@@ -71,6 +71,14 @@
     </div>
 
     <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: dlaczego nie litery albo całe słowa?</summary>
+      <div class="deep-body">
+        <p>Gdyby tokenem była każda litera, teksty byłyby kilka razy dłuższe, a model musiałby za każdym razem „składać” słowa z liter — drożej i trudniej. Gdyby tokenem było każde słowo, słownik musiałby być nieskończony: wszystkie odmiany, literówki, nazwiska, hasła, kod. Każde nowe słowo byłoby dla modelu niewidzialne.</p>
+        <p>Tokeny podsłowne <span class="en">subword tokens</span> to kompromis: częste słowa mają własne tokeny, rzadkie składa się z kawałków, a w ostateczności zostają pojedyncze bajty. Dzięki temu da się zapisać każdy tekst, nawet emoji czy chiński.</p>
+      </div>
+    </details>
+
+    <details class="deep" data-reveal>
       <summary>Dla dociekliwych: zagadka truskawki</summary>
       <div class="deep-body">
         <p>
@@ -84,7 +92,7 @@
           zaglądania do wnętrza tokenu, jest dla modelu zaskakująco trudne.
         </p>
         <p>
-          W słowniku są też <strong>tokeny specjalne</strong>, których nie da się wpisać z klawiatury, np. znacznik
+          W słowniku są też <strong>tokeny specjalne</strong> <span class="en">special tokens</span>, których nie da się wpisać z klawiatury, np. znacznik
           „koniec tekstu” albo „teraz mówi użytkownik”. Wrócimy do nich w rozdziale 10.
         </p>
       </div>

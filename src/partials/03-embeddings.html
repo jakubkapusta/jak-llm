@@ -1,12 +1,11 @@
 <section class="chapter" id="embeddingi" data-chapter="03" data-title="Embeddingi" data-accent="violet">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">03</span><span>Embeddingi</span></div>
+      <div class="kicker" data-reveal><span class="num">03</span><span>Embeddingi</span><span class="kicker-en">embeddings</span></div>
       <h2 class="h-display" data-split>Każdy token staje się <em>punktem w przestrzeni znaczeń</em></h2>
       <p class="lede" data-reveal>
         Numer tokenu sam w sobie nic nie znaczy — „kot” równie dobrze mógłby mieć numer 7, co 70&nbsp;000.
-        Dlatego pierwszym krokiem sieci jest zamiana numeru na długą listę liczb: <strong>wektor</strong>, zwany
-        embeddingiem. W dużych modelach taki wektor ma kilka, a nawet kilkanaście tysięcy wymiarów.
+        Dlatego pierwszym krokiem sieci jest zamiana numeru na długą listę liczb: <strong>wektor</strong> <span class="en">vector</span>, zwany embeddingiem <span class="en">embedding</span>. W dużych modelach taki wektor ma kilka, a nawet kilkanaście tysięcy wymiarów.
       </p>
     </div>
 
@@ -43,17 +42,17 @@
           „Kot” i „pies” pojawiają się w podobnych zdaniach, więc ich punkty się zbliżają.
         </p>
         <p>
-          Co więcej, <strong>kierunki</strong> w tej przestrzeni zaczynają coś znaczyć. Przesunięcie od „mężczyzny”
+          Co więcej, <strong>kierunki</strong> <span class="en">directions</span> w tej przestrzeni zaczynają coś znaczyć. Przesunięcie od „mężczyzny”
           do „kobiety” jest podobne do przesunięcia od „króla” do „królowej”. Dlatego działa arytmetyka obok.
           W prawdziwych modelach to zjawisko jest bardziej zaszumione, ale zaskakująco realne.
         </p>
       </div>
       <div class="prose" data-reveal>
-        <h3 class="h-mid">A co z <em>kolejnością</em>?</h3>
+        <h3 class="h-mid">A co z <em>kolejnością</em>? <span class="en">positional encoding</span></h3>
         <p>
           „Pies ugryzł człowieka” i „człowiek ugryzł psa” składają się z tych samych tokenów. Sieć musi więc
           dodatkowo wiedzieć, <em>gdzie</em> stoi każde słowo. Współczesne modele robią to sprytnie: obracają
-          fragmenty wektora o kąt zależny od pozycji (metoda <strong>RoPE</strong>).
+          fragmenty wektora o kąt zależny od pozycji (metoda <strong>RoPE</strong> <span class="en">rotary position embedding</span>).
         </p>
         <p>
           Wyobraź sobie zegar z wieloma wskazówkami kręcącymi się z różną prędkością. Szybkie odróżniają
@@ -68,5 +67,13 @@
       <div class="rope-row"></div>
       <div class="rope-legend mono"><span><i style="background: var(--amber)"></i>szybka</span><span><i style="background: var(--violet)"></i>średnia</span><span><i style="background: var(--cyan)"></i>wolna</span></div>
     </div>
+    <details class="deep" data-reveal>
+      <summary>Dla dociekliwych: ile to liczb i skąd się biorą?</summary>
+      <div class="deep-body">
+        <p>Wszystkie embeddingi trzymane są w jednej tabeli <span class="en">embedding matrix</span>: jeden wiersz na każdy token ze słownika. Przy słowniku 200 000 tokenów i wektorach o 12 000 wymiarów to 2,4 miliarda parametrów — sama „tabela znaczeń”.</p>
+        <p>Zamiana tokenu w wektor to po prostu odczytanie odpowiedniego wiersza. Wartości w tabeli są uczone razem z resztą sieci, tym samym spadkiem gradientu, który poznamy w rozdziale 9.</p>
+        <p>Oryginalny transformer z 2017 roku kodował pozycję inaczej: dodawał do wektora zestaw fal sinusoidalnych o różnych częstotliwościach. Idea „wielu zegarów” była ta sama. RoPE (2021) zwyciężył, bo w naturalny sposób mierzy odległość między słowami.</p>
+      </div>
+    </details>
   </div>
 </section>

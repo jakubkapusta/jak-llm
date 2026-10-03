@@ -1,7 +1,7 @@
-<section class="chapter" id="granice" data-chapter="13" data-title="Granice i przyszłość" data-accent="violet">
+<section class="chapter" id="granice" data-chapter="14" data-title="Granice i przyszłość" data-accent="violet">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="kicker" data-reveal><span class="num">13</span><span>Granice i przyszłość</span></div>
+      <div class="kicker" data-reveal><span class="num">14</span><span>Granice i przyszłość</span><span class="kicker-en">limitations · frontiers</span></div>
       <h2 class="h-display" data-split>Granice i <em>to, co dalej</em></h2>
       <p class="lede" data-reveal>
         Znamy już całą maszynerię. Teraz łatwiej zrozumieć, skąd biorą się słabości modeli i dokąd zmierzają
@@ -11,45 +11,45 @@
 
     <div class="bento">
       <article class="bx bx-hallu" data-reveal>
-        <span class="bx-tag mono">01 · halucynacje</span>
+        <span class="bx-tag mono">01 · halucynacje · hallucinations</span>
         <h3>Wiarygodne ≠ prawdziwe</h3>
         <p>Model zawsze produkuje <em>prawdopodobny</em> ciąg dalszy. Jeśli nie zna odpowiedzi, prawdopodobny ciąg dalszy wciąż istnieje — i brzmi równie pewnie jak prawda.</p>
         <div class="hallu">
           <div class="hallu-q mono">Podaj źródło badania o wpływie kawy na kreatywność.</div>
           <div class="hallu-a">Kowalski, J. i Nowak, A. (2019). <i>Kofeina a myślenie dywergencyjne.</i> Journal of Cognitive Science, 41(3), 212–229.<span class="stamp">nie istnieje</span></div>
         </div>
-        <p class="bx-foot">Lekarstwa: wyszukiwanie w sieci i cytowanie źródeł, trening nagradzający „nie wiem”, sprawdzanie odpowiedzi narzędziami.</p>
+        <p class="bx-foot">Lekarstwa: wyszukiwanie w sieci i w bazach dokumentów przed odpowiedzią <span class="en">retrieval-augmented generation · RAG</span>, cytowanie źródeł, trening nagradzający „nie wiem”, sprawdzanie odpowiedzi narzędziami.</p>
       </article>
 
       <article class="bx bx-ctx" data-reveal>
-        <span class="bx-tag mono">02 · okno kontekstu</span>
+        <span class="bx-tag mono">02 · okno kontekstu · context window</span>
         <h3>Pamięć ma brzegi</h3>
         <p>Model widzi tylko tyle tokenów, ile mieści jego okno: dziś od dziesiątek tysięcy do ponad miliona. Co poza nim — nie istnieje.</p>
         <div class="ctxwin"><div class="ctx-strip"></div><div class="ctx-frame"></div></div>
-        <p class="bx-foot">Nawet w oknie uwaga bywa nierówna: modele lepiej pamiętają początek i koniec długiego tekstu niż środek.</p>
+        <p class="bx-foot">Nawet w oknie uwaga bywa nierówna: modele lepiej pamiętają początek i koniec długiego tekstu niż środek <span class="en">lost in the middle</span>.</p>
       </article>
 
       <article class="bx bx-think" data-reveal>
-        <span class="bx-tag mono">03 · rozumowanie</span>
+        <span class="bx-tag mono">03 · rozumowanie · reasoning</span>
         <h3>Myślenie na głos</h3>
-        <p>Każdy token to stała porcja obliczeń. Trudne zadanie w jednym tokenie? Za mało „czasu na myślenie”. Pisząc kroki pośrednie, model kupuje sobie więcej obliczeń.</p>
+        <p>Każdy token to stała porcja obliczeń. Trudne zadanie w jednym tokenie? Za mało „czasu na myślenie”. Pisząc kroki pośrednie <span class="en">chain of thought</span>, model kupuje sobie więcej obliczeń.</p>
         <div class="think">
           <div class="th-row bad"><span class="mono">od razu:</span> 17 × 24 = <b>418</b> <i>✕</i></div>
           <div class="th-row good"><span class="mono">krok po kroku:</span> 17 × 24 = 17 × 20 + 17 × 4 = 340 + 68 = <b>408</b> <i>✓</i></div>
         </div>
-        <p class="bx-foot">Modele „rozumujące” są trenowane (RL z weryfikowalnymi nagrodami), by przed odpowiedzią pisać długie, ukryte notatki — czasem tysiące tokenów.</p>
+        <p class="bx-foot">Modele „rozumujące” <span class="en">reasoning models</span> są trenowane (RL z weryfikowalnymi nagrodami), by przed odpowiedzią pisać długie, ukryte notatki — czasem tysiące tokenów. Więcej myślenia przy odpowiedzi to tzw. <span class="en">test-time compute</span>.</p>
       </article>
 
       <article class="bx bx-agent" data-reveal>
-        <span class="bx-tag mono">04 · narzędzia i agenci</span>
+        <span class="bx-tag mono">04 · narzędzia i agenci · tool use · agents</span>
         <h3>Model w pętli</h3>
-        <p>Model nie musi wszystkiego wiedzieć ani liczyć sam. Może wypisać specjalny tekst „wywołaj narzędzie”, program je wykona, a wynik wróci do kontekstu.</p>
+        <p>Model nie musi wszystkiego wiedzieć ani liczyć sam. Może wypisać specjalny tekst „wywołaj narzędzie” <span class="en">tool call</span>, program je wykona, a wynik wróci do kontekstu.</p>
         <svg class="agent-svg" viewBox="0 0 360 220" aria-label="Pętla agenta"></svg>
         <p class="bx-foot">Ta strona powstała właśnie tak: model językowy w pętli z edytorem plików, terminalem i przeglądarką napisał, uruchomił i sprawdził cały jej kod.</p>
       </article>
 
       <article class="bx bx-multi" data-reveal>
-        <span class="bx-tag mono">05 · multimodalność</span>
+        <span class="bx-tag mono">05 · multimodalność · multimodality</span>
         <h3>Obraz to też tokeny</h3>
         <p>Zdjęcie tnie się na małe kwadraty, każdy zamienia się w wektor — i dalej działa ta sama maszyneria uwagi. Podobnie z dźwiękiem.</p>
         <div class="patches"></div>
@@ -68,6 +68,14 @@
         <span class="mono">Kot usiadł na</span><span class="finale-word">parapecie</span><span class="finale-dot">.</span>
       </div>
     </div>
+  </div>
+
+  <div class="gloss wrap" id="slowniczek">
+    <div class="kicker" data-reveal><span class="num">A–Ż</span><span>Słowniczek</span><span class="kicker-en">glossary</span></div>
+    <h2 class="h-mid" data-reveal>Polsko-angielski <em>słowniczek pojęć</em></h2>
+    <p class="hint" data-reveal>W literaturze i dokumentacji prawie wszystko występuje po angielsku. Kliknij termin, żeby przejść do rozdziału, w którym go omawiamy.</p>
+    <input class="gloss-search" type="search" placeholder="Szukaj, np. attention, strata, RLHF…" aria-label="Szukaj w słowniczku" data-reveal />
+    <div class="gloss-list"></div>
   </div>
 
   <footer class="foot">
