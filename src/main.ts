@@ -16,6 +16,7 @@ import { initAssistant } from './chapters/assistant'
 import { initAlignment } from './chapters/alignment'
 import { initScale } from './chapters/scale'
 import { initSkills } from './chapters/skills'
+import { initAgents } from './chapters/agents'
 import { initLimits } from './chapters/limits'
 import { initGlossary } from './chapters/glossary'
 
@@ -38,6 +39,7 @@ const chapters: [string, () => void][] = [
   ['alignment', initAlignment],
   ['scale', initScale],
   ['skills', initSkills],
+  ['agents', initAgents],
   ['limits', initLimits],
   ['glossary', initGlossary],
 ]

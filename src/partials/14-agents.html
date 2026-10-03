@@ -1,0 +1,282 @@
+<section class="chapter ag" id="agenci" data-chapter="14" data-title="Agenci" data-accent="mint">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="kicker" data-reveal><span class="num">14</span><span>Agenci</span><span class="kicker-en">agents · tool use · context engineering</span></div>
+      <h2 class="h-display" data-split>Agenci: <em>od mówienia do działania</em></h2>
+      <p class="lede" data-reveal>
+        Sam model językowy potrafi tylko jedno: dopisywać tekst. Nie otworzy pliku, nie sprawdzi pogody, niczego nie
+        kliknie. <strong>Agent</strong> <span class="en">agent</span> to model wpięty w pętlę z narzędziami, który
+        przez dziesiątki lub setki kroków sam dąży do celu: planuje, działa, sprawdza efekty i poprawia. Ta strona
+        powstała właśnie tak — więc w tym rozdziale zaglądamy agentowi przez ramię.
+      </p>
+    </div>
+
+    <!-- A. Ewolucja -->
+    <div class="evo" data-reveal>
+      <div class="evo-line"></div>
+      <div class="evo-step"><span class="mono evo-y">2020</span><b>Autouzupełnianie</b><p>Tekst wchodzi, tekst wychodzi. Model bazowy dopisuje ciąg dalszy.</p></div>
+      <div class="evo-step"><span class="mono evo-y">2022</span><b>Czat</b><p>Dostrojony asystent odpowiada na pytania i prowadzi rozmowę.</p></div>
+      <div class="evo-step"><span class="mono evo-y">2023</span><b>Narzędzia</b><p>Model może wypisać wywołanie funkcji: kalkulatora, wyszukiwarki, bazy danych.</p></div>
+      <div class="evo-step"><span class="mono evo-y">2024–25</span><b>Agent</b><p>Pętla setek kroków: kod, terminal, przeglądarka, a nawet obsługa całego komputera.</p></div>
+      <div class="evo-step"><span class="mono evo-y">2025–</span><b>Zespół agentów</b><p>Główny agent dzieli pracę i uruchamia subagentów, którzy działają równolegle.</p></div>
+    </div>
+
+    <!-- B. Wywołanie narzędzia -->
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Sekret: model <em>niczego nie wykonuje</em></h3>
+        <p>
+          Kluczowa rzecz, którą łatwo przeoczyć: model nadal tylko pisze tekst. Narzędzia działają dzięki programowi,
+          który go otacza — tzw. <strong>uprzęży</strong> <span class="en">harness · scaffolding</span>. To ona
+          wkleja do kontekstu opisy dostępnych narzędzi (nazwa, do czego służy, jakie przyjmuje parametry).
+        </p>
+        <p>
+          Gdy model chce czegoś użyć, wypisuje specjalnie sformatowany tekst — <strong>wywołanie narzędzia</strong>
+          <span class="en">tool call · function calling</span>. Uprząż je wyłapuje, wykonuje prawdziwy program, a wynik
+          dokleja do kontekstu jako kolejną wiadomość. Model czyta wynik i decyduje, co dalej.
+        </p>
+        <p>
+          Tę umiejętność model nabywa w dostrajaniu (format wywołań) i w uczeniu ze wzmocnieniem w piaskownicach
+          <span class="en">RL environments</span>, gdzie dostaje nagrodę za doprowadzenie zadania do końca.
+          W skrócie: <strong>agent = model + uprząż + narzędzia</strong>.
+        </p>
+      </div>
+      <div class="tc panel" data-reveal>
+        <div class="panel-label"><span>Co naprawdę widzi model</span><span class="mono">jeden krok</span></div>
+        <div class="tc-row tc-def"><span class="tc-k mono">narzędzie w kontekście</span><pre>{ "name": "pogoda",
+  "description": "Prognoza dla miasta",
+  "input": { "miasto": "string" } }</pre></div>
+        <div class="tc-row tc-user"><span class="tc-k mono">użytkownik</span><p>Czy jutro w Krakowie wziąć parasol?</p></div>
+        <div class="tc-row tc-call"><span class="tc-k mono">model pisze</span><pre>&lt;tool_call&gt; pogoda({ "miasto": "Kraków" })</pre></div>
+        <div class="tc-row tc-res"><span class="tc-k mono">uprząż dokleja wynik</span><pre>&lt;tool_result&gt; { "deszcz": "80%", "temp": "11°C" }</pre></div>
+        <div class="tc-row tc-ans"><span class="tc-k mono">model pisze dalej</span><p>Tak, weź parasol — prognoza daje 80% szans na deszcz.</p></div>
+      </div>
+    </div>
+
+    <!-- C. Pętla agenta -->
+    <div class="block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Pętla agenta: <em>myśl, działaj, obserwuj</em> <span class="en">agent loop · ReAct</span></h3>
+        <p>
+          Poniżej odtworzenie prawdziwego zadania z budowy tej strony: naprawa krzywego plusa w przyciskach
+          „Dla dociekliwych”. Zwróć uwagę na trzy rzeczy: agent najpierw <strong>planuje</strong>, potem wykonuje
+          kroki jeden po drugim, a na końcu <strong>sprawdza</strong> efekt. I że kontekst z każdym krokiem rośnie.
+        </p>
+      </div>
+      <div class="loop panel" data-reveal>
+        <div class="panel-label">
+          <span class="live loop-status">gotowy</span>
+          <div class="loop-ctrl">
+            <button class="btn small loop-play">❚❚ pauza</button>
+            <button class="btn small loop-reset">↺ od nowa</button>
+          </div>
+        </div>
+        <div class="loop-grid">
+          <div class="loop-log" aria-live="polite" data-lenis-prevent></div>
+          <aside class="loop-side">
+            <div class="h-small">Plan <span class="en">todo list</span></div>
+            <ul class="loop-todo"></ul>
+            <div class="h-small loop-ctx-h">Kontekst <span class="mono loop-ctx-n">0 / 200k</span></div>
+            <div class="loop-ctx"><i></i></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- D. Planowanie -->
+    <div class="two-col block">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Jak agent <em>planuje</em> i dzieli pracę?</h3>
+        <p>
+          Nie ma w nim osobnego „modułu planowania”. Plan to po prostu <strong>tekst w kontekście</strong>: lista
+          kroków, którą agent sam sobie zapisuje (często specjalnym narzędziem do listy zadań). Ponieważ model przy
+          każdym tokenie widzi cały kontekst, zapisany plan działa jak notatka na biurku — przypomina, co już zrobione
+          i co zostało.
+        </p>
+        <p>
+          Dobry plan dzieli zadanie na kawałki, które da się <strong>sprawdzić</strong>: „testy przechodzą”,
+          „zrzut ekranu pokazuje wyśrodkowany plus”. Po każdym kroku agent porównuje wynik z oczekiwaniem i w razie
+          potrzeby <strong>przeplanowuje</strong> — tak jak człowiek, który odkrył, że problem leży gdzie indziej.
+        </p>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Skąd ta umiejętność?</h3>
+        <p>
+          Częściowo z danych: w internecie są miliony list zadań, planów projektów i opisów „jak rozwiązałem ten błąd”.
+          Ale przede wszystkim z <strong>uczenia ze wzmocnieniem na długich zadaniach</strong>: model, który najpierw
+          rozpisał problem i sprawdzał postępy, częściej dochodził do końca i dostawał nagrodę.
+        </p>
+        <p>
+          Pomaga też uprząż: tryb planowania, w którym agent najpierw tylko czyta i proponuje plan do akceptacji
+          człowieka <span class="en">plan mode</span>. Tak powstała ta strona — najpierw zatwierdzony spis
+          rozdziałów, dopiero potem kod.
+        </p>
+      </div>
+    </div>
+
+    <!-- E. Kontekst -->
+    <div class="block">
+      <div class="two-col">
+        <div class="prose" data-reveal>
+          <h3 class="h-mid">Kontekst: <em>jedyna pamięć agenta</em> <span class="en">context window</span></h3>
+          <p>
+            Wszystko, co agent „wie” o bieżącym zadaniu, musi być w kontekście: prompt systemowy, opisy narzędzi,
+            rozmowa, przeczytane pliki, wyniki komend, zrzuty ekranu. Model między krokami nie ma żadnej innej pamięci
+            (rozdział 8). A okno jest skończone — dziś zwykle od 200 tysięcy do miliona tokenów.
+          </p>
+          <p>
+            Przy długiej pracy okno się zapełnia. Uprząż może wtedy <strong>skompaktować</strong> kontekst
+            <span class="en">compaction</span>: model streszcza dotychczasową pracę, a stare szczegóły zostają usunięte.
+            Zbyt długi kontekst szkodzi też jakości — model gubi wątki <span class="en">context rot</span>. Dlatego
+            mówi się dziś o <strong>inżynierii kontekstu</strong> <span class="en">context engineering</span>: sztuce
+            decydowania, co do niego wpuścić.
+          </p>
+          <p>
+            Co ma przetrwać dłużej niż jedna sesja, zapisuje się w plikach pamięci (np. instrukcje projektu
+            <span class="en">CLAUDE.md · memory</span>). Ten rozdział powstał zresztą dlatego, że poprzedniego dnia
+            agent zapisał sobie w takiej notatce: „na później: agenci, subagenci, kontekst, skille, MCP”.
+          </p>
+        </div>
+        <div class="ctx panel" data-reveal>
+          <div class="panel-label"><span class="live">Okno kontekstu w czasie pracy</span><span class="mono ctx-total">0k / 200k</span></div>
+          <div class="ctx-bar"></div>
+          <div class="ctx-limit mono"><span>0</span><span>limit 200k</span></div>
+          <div class="slider">
+            <div class="slider-top"><span>Postęp pracy agenta</span><output class="ctx-out">start</output></div>
+            <input type="range" class="ctx-s" min="0" max="10" step="1" value="0" aria-label="Postęp pracy agenta" />
+          </div>
+          <div class="ctx-legend"></div>
+          <p class="ctx-msg"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- F. Subagenci -->
+    <div class="block">
+      <div class="two-col">
+        <div class="prose" data-reveal>
+          <h3 class="h-mid">Subagenci: <em>świeży kontekst do brudnej roboty</em> <span class="en">subagents · orchestrator</span></h3>
+          <p>
+            Przeszukanie dużego projektu może wymagać przeczytania setek plików. Gdyby robił to główny agent, jego
+            kontekst zapchałby się szczegółami, z których potrzebuje tylko wniosku. Rozwiązanie: główny agent
+            (<strong>orkiestrator</strong>) uruchamia <strong>subagenta</strong> — osobną instancję modelu z pustym
+            kontekstem i jednym, konkretnym zadaniem.
+          </p>
+          <p>
+            Subagent czyta, szuka i próbuje, ile trzeba, a do orkiestratora wraca tylko krótkie streszczenie. Kilku
+            subagentów może pracować <strong>równolegle</strong>. Cena: więcej zużytych tokenów i ryzyko, że
+            subagent nie wie tego, co wie główny agent — trzeba mu dokładnie opisać zadanie, jak nowemu
+            współpracownikowi.
+          </p>
+        </div>
+        <div class="sub panel" data-reveal>
+          <div class="panel-label"><span class="live">Delegowanie zadań</span><button class="btn small sub-go">▶ uruchom</button></div>
+          <div class="sub-stage">
+            <svg class="sub-svg" aria-hidden="true"></svg>
+            <div class="sub-node sub-main" style="left: 50%; top: 4%">
+              <b>orkiestrator</b>
+              <div class="sub-ctx"><i></i></div>
+              <span class="mono sub-n">kontekst: 24k</span>
+            </div>
+            <div class="sub-node sub-child" style="left: 17%; top: 62%"><b>szukaj w kodzie</b><div class="sub-ctx"><i></i></div><span class="mono sub-n">0k</span></div>
+            <div class="sub-node sub-child" style="left: 50%; top: 62%"><b>czytaj dokumentację</b><div class="sub-ctx"><i></i></div><span class="mono sub-n">0k</span></div>
+            <div class="sub-node sub-child" style="left: 83%; top: 62%"><b>sprawdź testy</b><div class="sub-ctx"><i></i></div><span class="mono sub-n">0k</span></div>
+          </div>
+          <p class="sub-msg">Kliknij „uruchom”, żeby zobaczyć, jak praca rozchodzi się do subagentów i wraca jako streszczenia.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- G. Skille -->
+    <div class="block two-col">
+      <div class="skl panel" data-reveal>
+        <div class="panel-label"><span class="live">Półka ze skillami</span><span class="mono skl-ctx">w kontekście: ~200 tokenów</span></div>
+        <div class="skl-asks">
+          <button class="btn small" data-s="0">„zrób z tego prezentację”</button>
+          <button class="btn small" data-s="1">„wypełnij ten PDF”</button>
+          <button class="btn small" data-s="2">„wdróż na serwer”</button>
+        </div>
+        <div class="skl-shelf"></div>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Skille: <em>podręczniki na półce</em> <span class="en">skills · progressive disclosure</span></h3>
+        <p>
+          Skill to spakowana wiedza „jak coś zrobić”: plik z instrukcjami, czasem z gotowymi skryptami i szablonami.
+          Na przykład: jak w tej firmie robi się prezentacje, jak wypełnia się formularze PDF albo jak przebiega
+          wdrożenie.
+        </p>
+        <p>
+          Sztuka polega na tym, że w kontekście leży tylko <strong>krótki opis</strong> każdego skilla — kilka zdań.
+          Pełną treść agent wczytuje dopiero wtedy, gdy zadanie jej wymaga. To tzw. <strong>stopniowe odsłanianie</strong>
+          <span class="en">progressive disclosure</span>: jak spis treści w głowie i książki na półce, po które
+          sięga się w razie potrzeby. Dzięki temu agent może „znać” setki procedur bez zapychania kontekstu.
+        </p>
+      </div>
+    </div>
+
+    <!-- H. MCP -->
+    <div class="block two-col">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">MCP: <em>USB-C dla modeli</em> <span class="en">Model Context Protocol</span></h3>
+        <p>
+          Każde narzędzie trzeba jakoś podłączyć. Bez wspólnego standardu każda aplikacja z AI musiała osobno
+          integrować się z każdą usługą: GitHubem, Slackiem, bazą danych, kalendarzem. Przy wielu aplikacjach
+          i wielu usługach liczba połączeń rośnie jak iloczyn.
+        </p>
+        <p>
+          <strong>MCP</strong> to otwarty protokół zaproponowany przez Anthropic pod koniec 2024 roku. Usługa udostępnia
+          swoje możliwości przez <strong>serwer MCP</strong> <span class="en">MCP server</span>: narzędzia (akcje),
+          zasoby (dane do odczytu) i gotowe polecenia. Aplikacja z modelem — <strong>klient</strong>
+          <span class="en">MCP client · host</span> — łączy się z dowolnym takim serwerem w ten sam sposób.
+          Raz napisany serwer działa wszędzie.
+        </p>
+        <p>
+          Z punktu widzenia modelu nic się nie zmienia: narzędzia z serwera MCP to po prostu kolejne opisy w kontekście
+          i kolejne wywołania, które uprząż przekazuje dalej.
+        </p>
+      </div>
+      <div class="mcp panel" data-reveal>
+        <div class="panel-label">
+          <span class="mono mcp-count">12 osobnych integracji</span>
+          <div class="seg mcp-pick">
+            <button class="on" data-m="0">bez MCP</button>
+            <button data-m="1">z MCP</button>
+          </div>
+        </div>
+        <svg class="mcp-svg" viewBox="0 0 520 320" aria-label="Porównanie integracji z MCP i bez"></svg>
+      </div>
+    </div>
+
+    <!-- I. Ryzyka -->
+    <div class="block two-col">
+      <div class="comp panel" data-reveal>
+        <div class="panel-label"><span class="live">Matematyka długich zadań</span></div>
+        <div class="slider">
+          <div class="slider-top"><span>Skuteczność pojedynczego kroku</span><output class="comp-p-out">99%</output></div>
+          <input type="range" class="comp-p" min="90" max="99.9" step="0.1" value="99" aria-label="Skuteczność kroku" />
+        </div>
+        <div class="slider">
+          <div class="slider-top"><span>Liczba kroków</span><output class="comp-n-out">100</output></div>
+          <input type="range" class="comp-n" min="1" max="300" step="1" value="100" aria-label="Liczba kroków" />
+        </div>
+        <div class="comp-res"><b class="comp-v">37%</b><span>szans, że wszystkie kroki się udadzą</span></div>
+        <canvas class="comp-chart" width="400" height="120"></canvas>
+      </div>
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Dlaczego agenci <em>muszą się sprawdzać</em></h3>
+        <p>
+          Błędy się kumulują. Agent, który robi dobrze 99% pojedynczych kroków, przy 100 krokach przejdzie całą
+          drogę bezbłędnie tylko w ok. 37% przypadków (0,99<sup>100</sup>). Dlatego dobre agenty nie liczą na
+          bezbłędność, tylko <strong>wyłapują i naprawiają</strong> własne pomyłki: uruchamiają testy, robią zrzuty
+          ekranu, czytają komunikaty błędów.
+        </p>
+        <p>
+          Do tego dochodzi bezpieczeństwo. Agent czyta treści z internetu, które mogą udawać polecenia
+          (wstrzykiwanie poleceń, rozdział 11). Dlatego uprzęże stosują <strong>uprawnienia i piaskownice</strong>
+          <span class="en">permissions · sandbox</span>, a przy działaniach nieodwracalnych — wysłaniu wiadomości,
+          usunięciu danych, publikacji — pytają człowieka o zgodę <span class="en">human-in-the-loop</span>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

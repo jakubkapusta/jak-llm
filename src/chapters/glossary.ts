@@ -66,7 +66,16 @@ const TERMS: [string, string, string, string][] = [
   ['okno kontekstu', 'context window', 'maksymalna liczba tokenów widoczna dla modelu', 'granice'],
   ['łańcuch myśli', 'chain of thought', 'pisanie kroków pośrednich przed odpowiedzią', 'granice'],
   ['wyszukiwanie wspomagające', 'retrieval-augmented generation, RAG', 'dołączanie znalezionych dokumentów do kontekstu', 'granice'],
-  ['agent, narzędzia', 'agent, tool use', 'model w pętli: wywołanie narzędzia → wynik → kolejny krok', 'granice'],
+  ['agent', 'agent', 'model w pętli z narzędziami, dążący do celu przez wiele kroków', 'agenci'],
+  ['uprząż', 'harness, scaffolding', 'program wokół modelu: narzędzia, uprawnienia, zarządzanie kontekstem', 'agenci'],
+  ['wywołanie narzędzia', 'tool call, function calling', 'sformatowany tekst, który uprząż zamienia na akcję', 'agenci'],
+  ['pętla agenta', 'agent loop, ReAct', 'myśl → działaj → obserwuj, powtarzane do skutku', 'agenci'],
+  ['kompaktowanie', 'compaction', 'streszczenie kontekstu, gdy okno się zapełnia', 'agenci'],
+  ['inżynieria kontekstu', 'context engineering', 'decydowanie, co trafia do kontekstu modelu', 'agenci'],
+  ['subagent, orkiestrator', 'subagent, orchestrator', 'osobna instancja modelu z własnym kontekstem do wydzielonego zadania', 'agenci'],
+  ['skill', 'skill, progressive disclosure', 'pakiet instrukcji wczytywany dopiero wtedy, gdy jest potrzebny', 'agenci'],
+  ['MCP', 'Model Context Protocol', 'otwarty standard podłączania narzędzi i danych do modeli', 'agenci'],
+  ['człowiek w pętli', 'human-in-the-loop', 'zgoda człowieka przed działaniami nieodwracalnymi', 'agenci'],
 ]
 
 export function initGlossary() {
