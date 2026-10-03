@@ -75,6 +75,7 @@ const TERMS: [string, string, string, string][] = [
   ['subagent, orkiestrator', 'subagent, orchestrator', 'osobna instancja modelu z własnym kontekstem do wydzielonego zadania', 'agenci'],
   ['skill', 'skill, progressive disclosure', 'pakiet instrukcji wczytywany dopiero wtedy, gdy jest potrzebny', 'agenci'],
   ['MCP', 'Model Context Protocol', 'otwarty standard podłączania narzędzi i danych do modeli', 'agenci'],
+  ['effort, wysiłek', 'effort, reasoning effort', 'ile model myśli i jak starannie sprawdza pracę: jakość vs czas i koszt', 'agenci'],
   ['człowiek w pętli', 'human-in-the-loop', 'zgoda człowieka przed działaniami nieodwracalnymi', 'agenci'],
 ]
 

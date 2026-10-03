@@ -35,21 +35,28 @@ function initThink() {
 
 function initAgent() {
   const svg = $<SVGSVGElement>('.agent-svg')
+  // pole rysunku szersze niż elipsa, żeby karty po bokach nie były ucinane
+  const CX = 240
+  const CY = 118
+  const RX = 160
+  const RY = 84
+  const W = 150
   const nodes: [number, number, string, string, string][] = [
-    [180, 30, 'model', 'pisze wywołanie', 'model'],
-    [310, 110, 'narzędzie', 'szukaj · kod · plik', ''],
-    [180, 190, 'wynik', 'trafia do kontekstu', ''],
-    [50, 110, 'kontekst', 'rośnie z każdym krokiem', ''],
+    [CX, CY - RY, 'model', 'pisze wywołanie', 'model'],
+    [CX + RX, CY, 'narzędzie', 'szukaj · kod · plik', ''],
+    [CX, CY + RY, 'wynik', 'trafia do kontekstu', ''],
+    [CX - RX, CY, 'kontekst', 'rośnie z każdym krokiem', ''],
   ]
-  svg.append(el('ellipse', { class: 'loop', cx: 180, cy: 110, rx: 130, ry: 80 }))
+  svg.setAttribute('viewBox', '0 0 480 240')
+  svg.append(el('ellipse', { class: 'loop', cx: CX, cy: CY, rx: RX, ry: RY }))
   for (const [x, y, t, s, cls] of nodes) {
     const g = el('g', { class: 'node ' + cls })
-    g.append(el('rect', { x: x - 52, y: y - 20, width: 104, height: 40, rx: 10 }))
-    g.append(el('text', { x, y: y - 2 }, t))
+    g.append(el('rect', { x: x - W / 2, y: y - 21, width: W, height: 42, rx: 10 }))
+    g.append(el('text', { x, y: y - 3 }, t))
     g.append(el('text', { class: 'sub', x, y: y + 12 }, s))
     svg.append(g)
   }
-  const runner = el('circle', { class: 'runner', r: 6, cx: 180, cy: 30 })
+  const runner = el('circle', { class: 'runner', r: 6, cx: CX, cy: CY - RY })
   svg.append(runner)
   if (reducedMotion) return
   const state = { a: -Math.PI / 2 }
@@ -59,8 +66,8 @@ function initAgent() {
     ease: 'none',
     repeat: -1,
     onUpdate: () => {
-      runner.setAttribute('cx', String(180 + Math.cos(state.a) * 130))
-      runner.setAttribute('cy', String(110 + Math.sin(state.a) * 80))
+      runner.setAttribute('cx', String(CX + Math.cos(state.a) * RX))
+      runner.setAttribute('cy', String(CY + Math.sin(state.a) * RY))
     },
   })
 }

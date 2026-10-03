@@ -35,7 +35,9 @@
 .ht-line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
+  /* zapas na ogonki liter (J wystaje w lewo, y i ś w dół) i pochyloną kursywę — cofnięty ujemnym marginesem */
+  padding: 0.08em 0.12em 0.22em 0.2em;
+  margin: -0.08em -0.12em -0.16em -0.2em;
 }
 .ht-line > span {
   display: inline-block;

@@ -114,6 +114,49 @@
       </div>
     </div>
 
+    <!-- D2. Effort -->
+    <div class="block two-col">
+      <div class="prose" data-reveal>
+        <h3 class="h-mid">Effort: <em>ile wysiłku włożyć?</em> <span class="en">effort · reasoning effort</span></h3>
+        <p>
+          Współczesne modele potrafią przed odpowiedzią „pomyśleć”, czyli napisać ukryte notatki z rozumowaniem
+          (rozdział 15). <strong>Effort</strong> to ustawienie, które mówi modelowi, jak bardzo ma się postarać:
+          ile tokenów przeznaczyć na myślenie, jak dokładnie sprawdzać własną pracę i ile kroków oraz wywołań narzędzi
+          wykonać, zanim uzna zadanie za skończone. Zwykle wybiera się poziom: niski, średni, wysoki albo maksymalny.
+          Starsza, bardziej techniczna wersja tego pomysłu to limit tokenów na myślenie <span class="en">thinking budget</span>.
+        </p>
+        <p>
+          Effort wpływa na cztery rzeczy naraz: <strong>jakość</strong> przy trudnych zadaniach, <strong>czas</strong>
+          oczekiwania, <strong>koszt</strong> (płaci się za każdy token, także za tokeny myślenia) i <strong>zużycie
+          kontekstu</strong>. Korzyści szybko maleją: na proste pytanie wysoki effort daje niewiele poza dłuższym
+          czekaniem. Na trudnym debugowaniu, architekturze programu czy matematyce różnica bywa ogromna.
+        </p>
+        <p>
+          To nie są osobne modele. Ten sam model został nauczony (głównie w uczeniu ze wzmocnieniem) dopasowywać
+          długość i staranność rozumowania do sygnału, który dostaje w ustawieniach. W agencie effort decyduje też
+          o stylu pracy: na niskim agent robi szybką, punktową poprawkę, a na wysokim częściej czyta dodatkowe pliki,
+          uruchamia testy i sprawdza przypadki brzegowe.
+        </p>
+      </div>
+      <div class="eff panel" data-reveal>
+        <div class="panel-label">
+          <span class="live">Poziom wysiłku</span>
+          <div class="seg eff-pick">
+            <button data-e="0">niski</button>
+            <button data-e="1" class="on">średni</button>
+            <button data-e="2">wysoki</button>
+            <button data-e="3">maks.</button>
+          </div>
+        </div>
+        <div class="eff-rows"></div>
+        <div class="eff-think">
+          <div class="h-small">Ukryte notatki modelu <span class="en">thinking</span></div>
+          <pre class="eff-pre" data-lenis-prevent></pre>
+        </div>
+        <p class="hint">Wartości są poglądowe i różnią się między modelami oraz zadaniami. Pokazują kierunek zmian, nie pomiar.</p>
+      </div>
+    </div>
+
     <!-- E. Kontekst -->
     <div class="block">
       <div class="two-col">

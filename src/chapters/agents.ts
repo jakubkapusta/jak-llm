@@ -428,7 +428,54 @@ function initCompound() {
   draw()
 }
 
+/* ------------------------------------------------------------------ */
+/* Effort                                                              */
+/* ------------------------------------------------------------------ */
+
+// [etykieta, wartości dla 4 poziomów (0..1 do paska), opisy wartości, czy to koszt]
+const EFF_ROWS: [string, number[], string[], boolean][] = [
+  ['Tokeny myślenia', [0.04, 0.15, 0.45, 1], ['~1 tys.', '~4 tys.', '~15 tys.', '~40 tys.'], true],
+  ['Czas odpowiedzi', [0.05, 0.15, 0.45, 1], ['sekundy', '~10 s', '~40 s', 'minuty'], true],
+  ['Koszt', [0.05, 0.15, 0.4, 1], ['× 1', '× 3', '× 10', '× 30'], true],
+  ['Skuteczność: proste zadanie', [0.94, 0.97, 0.98, 0.98], ['94%', '97%', '98%', '98%'], false],
+  ['Skuteczność: trudne zadanie', [0.35, 0.55, 0.7, 0.76], ['35%', '55%', '70%', '76%'], false],
+]
+const EFF_THINK = [
+  'Krzywy plus → pewnie CSS. Poprawiam wyśrodkowanie.',
+  'Krzywy plus w przycisku. Szukam stylu .deep summary.\nZnak „+” z fontu — linia bazowa przesunięta.\nNarysuję go gradientami. Sprawdzę zrzutem ekranu.',
+  'Użytkownik widzi krzywy plus. Najpierw znajdę styl i zrozumiem przyczynę, zamiast zgadywać.\n„+” to glif fontu: jego linia bazowa i metryki nie pokrywają się ze środkiem kółka, więc place-items: center nie pomoże.\nOpcje: (a) korekta translateY — krucha, zależy od fontu; (b) rysowanie kreskami w CSS — niezależne od fontu. Wybieram (b).\nPo zmianie: obrót o 45° przy otwarciu ma dalej dawać „×” — gradienty obracają się razem z elementem, OK.\nSprawdzę zrzutem ekranu i na telefonie.',
+  'Użytkownik widzi krzywy plus. Znajdę wszystkie miejsca, gdzie występuje ten wzorzec, nie tylko jedno.\nPrzyczyna: glif „+” w JetBrains Mono ma środek optyczny niżej niż geometryczny; zależy też od fallbacku fontu, gdy Google Fonts się nie załaduje.\nOpcje: (a) translateY — krucha; (b) SVG inline — więcej kodu; (c) dwa gradienty — prosto, ostro na każdym DPI. Wybieram (c).\nPrzypadki brzegowe: hover (kolor obramowania), stan otwarty (obrót → „×”), tryb ograniczonego ruchu (bez animacji obrotu — tylko podmiana), wysoki kontrast.\nWeryfikacja: zrzut ekranu desktop + telefon, sprawdzenie, że inne przyciski nie używają tego samego wzorca.\nNa koniec krótkie podsumowanie zmian dla człowieka.',
+]
+
+function initEffort() {
+  const root = $('.eff')
+  const rows = $('.eff-rows', root)
+  const pre = $('.eff-pre', root)
+  const els = EFF_ROWS.map(([label, , , cost]) => {
+    const fill = h('i', { style: 'width:0' })
+    const val = h('b')
+    rows.append(h('div', { class: 'eff-row' + (cost ? ' cost' : '') }, h('span', {}, label), h('span', { class: 'tr' }, fill), val))
+    return { fill, val }
+  })
+  const show = (k: number) => {
+    EFF_ROWS.forEach(([, v, d], i) => {
+      els[i].fill.style.width = v[k] * 100 + '%'
+      els[i].val.textContent = d[k]
+    })
+    pre.textContent = EFF_THINK[k]
+    if (!reducedMotion) gsap.fromTo(pre, { opacity: 0 }, { opacity: 1, duration: 0.5 })
+  }
+  $$<HTMLButtonElement>('.eff-pick button', root).forEach((b) =>
+    b.addEventListener('click', () => {
+      $$('.eff-pick button', root).forEach((x) => x.classList.toggle('on', x === b))
+      show(Number(b.dataset.e))
+    }),
+  )
+  show(1)
+}
+
 export function initAgents() {
+  initEffort()
   initEvo()
   initLoop()
   initCtx()
